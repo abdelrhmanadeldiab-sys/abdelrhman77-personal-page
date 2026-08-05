@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="اختبارات ومسارات تفاعلية في النحو والبلاغة العربية، مع نظام مستويات وتوصيات ذكية لمقاطع الشرح.">
+    <meta property="og:title" content="الصفحة الشخصية | عبد الرحمن عادل دياب">
+    <meta property="og:description" content="اختبارات ومسارات تفاعلية في اللغة العربية">
+    <meta property="og:type" content="website">
     <title>الصفحة الشخصية | عبد الرحمن عادل دياب</title>
     <style>
         :root {
@@ -371,6 +375,7 @@
     
     <button class="drawer-item" onclick="toggleTheme()">🌓 تفعيل الوضع (الداكن / الفاتح)</button>
     <button class="drawer-item" onclick="toggleReportModal(true)">⚠️ التبليغ عن خطأ أو مشكلة</button>
+    <button class="drawer-item" onclick="resetUserData()">🗑️ مسح التقدم المحفوظ والبدء من جديد</button>
     
     <a href="https://wa.me/201150406540?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86" target="_blank" class="drawer-item">💬 تواصل مع عبد الرحمن عبر واتساب</a>
     <a href="https://facebook.com" target="_blank" class="drawer-item">📘 صفحة الفيسبوك الرسمية</a>
@@ -468,6 +473,58 @@
     let placementScore = 0;
     let pendingYtLink = '';
 
+    // ===== حفظ واسترجاع التقدم محلياً (بدون سيرفر) =====
+    const STORAGE_KEY = 'aldad_user_progress_v1';
+
+    function saveUserData() {
+        try {
+            const payload = {
+                name: user.name,
+                email: user.email,
+                points: user.points,
+                progress: user.progress,
+                shownQuestionIds: Array.from(shownQuestionIds)
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (e) {
+            console.warn('تعذر حفظ التقدم محلياً:', e);
+        }
+    }
+
+    function loadUserData() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return false;
+            const saved = JSON.parse(raw);
+            user.name = saved.name || '';
+            user.email = saved.email || '';
+            user.points = saved.points || 0;
+            user.progress = Object.assign(user.progress, saved.progress || {});
+            shownQuestionIds = new Set(saved.shownQuestionIds || []);
+            return !!user.name;
+        } catch (e) {
+            console.warn('تعذر استرجاع التقدم المحفوظ:', e);
+            return false;
+        }
+    }
+
+    function resetUserData() {
+        if (!confirm('سيتم حذف اسمك ونقاطك وتقدمك المحفوظ على هذا الجهاز. هل أنت متأكد؟')) return;
+        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        location.reload();
+    }
+
+    function initApp() {
+        const hasSavedUser = loadUserData();
+        if (hasSavedUser) {
+            document.getElementById('display-name').innerText = user.name;
+            document.getElementById('display-points').innerText = user.points;
+            document.getElementById('top-bar').classList.remove('hidden');
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('path-select-screen').classList.remove('hidden');
+        }
+    }
+
     function toggleDrawer() {
         document.getElementById('app-drawer').classList.toggle('open');
     }
@@ -519,7 +576,7 @@
     }
 
     function quickGuestLogin() {
-        user.name = document.getElementById('username').value.trim() || "زائر الصفة";
+        user.name = document.getElementById('username').value.trim() || "زائر الصفحة";
         user.email = "guest@aldad.com";
         completeLogin();
     }
@@ -543,6 +600,7 @@
         document.getElementById('auth-screen').classList.add('hidden');
         document.getElementById('otp-screen').classList.add('hidden');
         document.getElementById('path-select-screen').classList.remove('hidden');
+        saveUserData();
     }
 
     function goToMapDirectly() {
@@ -606,6 +664,7 @@
                 alert(`أنهيت الاختبار بنتيجة ${placementScore}/${placementQuestions.length}. يمكنك الآن البدء بالتدرج من المستوى الأول.`);
             }
 
+            saveUserData();
             showMap();
         }
     }
@@ -724,6 +783,7 @@
             document.getElementById('display-points').innerText = user.points;
             feedback.innerText = "إجابة صحيحة! أحسنت 👏 (+10 نقاط ﺽ)";
             feedback.className = 'feedback-box feedback-correct';
+            saveUserData();
         } else {
             feedback.innerText = `إجابة خاطئة! التوضيح: ${qObj.exp}`;
             feedback.className = 'feedback-box feedback-wrong';
@@ -794,6 +854,7 @@
             if (user.progress[currentTrackKey] <= currentLevelNum) {
                 user.progress[currentTrackKey] = currentLevelNum + 1;
             }
+            saveUserData();
         } else {
             document.getElementById('result-title').innerText = "أوشكت على إتقان المستوى! 🎯";
             document.getElementById('result-desc').innerText = `لديك ${wrongQuestionsPool.length} أسئلة بحاجة لمراجعة. سنعيد اختبارك في هذه الأسئلة لضمان الإتقان.`;
@@ -815,6 +876,8 @@
             showMap();
         }
     }
+
+    initApp();
 </script>
 
 </body>
