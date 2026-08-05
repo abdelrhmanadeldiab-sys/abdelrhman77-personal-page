@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الضاد التعليمية الذكية</title>
+    <title>Abdelrahman Adel Diab's Page</title>
     <style>
         :root {
             --primary: #1e1b4b;
@@ -233,7 +233,7 @@
     <!-- زر القائمة الجانبية (3 شروط) -->
     <button class="menu-toggle" onclick="toggleDrawer()">☰</button>
 
-    <h1>منصة الضاد التعليمية 🤖</h1>
+    <h1>Abdelrahman Adel Diab's Page 🤖</h1>
 
     <!-- الشريط العلوي -->
     <div id="top-bar" class="top-bar hidden">
@@ -624,12 +624,12 @@
                 const node = document.createElement('div');
                 const isTrackUnlocked = tIdx <= user.unlockedTrackIndex;
                 const isCompleted = l < currentLevel;
-                const isCurrent = (l === currentLevel) || (l === 2 && currentLevel === 1); // تعديل لفتح أول مستويين معاً
+                const isCurrent = (l === currentLevel);
 
-                if (!isTrackUnlocked || l > Math.max(2, currentLevel)) {
+                if (!isTrackUnlocked || l > Math.max(1, currentLevel)) {
                     node.className = 'level-node locked';
                     node.innerText = `م${l}`;
-                } else if (isCompleted && l !== 2) {
+                } else if (isCompleted) {
                     node.className = 'level-node completed';
                     node.innerText = `✓ م${l}`;
                 } else {
