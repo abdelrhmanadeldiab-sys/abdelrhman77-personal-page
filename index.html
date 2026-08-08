@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
     <meta name="google-site-verification" content="5sdOUTRw8kgkkSbnlL_74epY5R_CCPahdRzETGU-R-o" />
     <meta charset="UTF-8">
@@ -13,348 +13,477 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-           هوية بصرية: "المخطوطة المذهّبة" — إطار مخطوط عربي كلاسيكي:
-           حبر داكن، ورق رقّ، ماء ذهب، وخط نسخي للعناوين.
-           ============================================================ */
-        :root {
-            --ink: #16231f;
-            --ink-deep: #0e1714;
-            --card-bg: #1c2b26;
-            --card-bg-alt: #24382f;
-            --gold: #c9a24d;
-            --gold-soft: #e9d49a;
-            --jade: #3f7a5e;
-            --jade-deep: #2c5847;
-            --secondary: var(--jade);
-            --accent: #4f8f5c;
-            --ai-color: #7d5a86;
-            --yt-red: #a8402f;
-            --danger: #8c3b34;
-            --bg: var(--ink);
-            --text-light: #f3ead9;
-            --text-muted: #ab9d80;
-            --border-color: rgba(201, 162, 77, 0.22);
-            --shadow-color: rgba(0, 0, 0, 0.45);
-        }
+/* ============================================================
+   هوية بصرية جديدة: "أخضر ناعم — Soft 3D"
+   ألوان أبيض/أخضر، ظلال ثلاثية الأبعاد ناعمة (Neumorphism خفيف)
+   مع أشكال دائرية ضبابية في الخلفية بأسلوب المواقع الكبيرة.
+   ============================================================ */
+:root {
+    --ink: #eefcf4;
+    --ink-deep: #ffffff;
+    --card-bg: #ffffff;
+    --card-bg-alt: #f2faf5;
+    --gold: #22a35d;
+    --gold-soft: #1b7a45;
+    --jade: #2fb872;
+    --jade-deep: #1e8c56;
+    --secondary: var(--jade);
+    --accent: #34c17c;
+    --ai-color: #0d9488;
+    --yt-red: #e0483e;
+    --danger: #e0483e;
+    --bg: #eefcf4;
+    --text-light: #163126;
+    --text-muted: #6c8a7a;
+    --border-color: rgba(34, 163, 93, 0.16);
+    --shadow-color: rgba(31, 96, 62, 0.16);
 
-        [data-theme="light"] {
-            --bg: #f3ecd8;
-            --card-bg: #fffbf1;
-            --card-bg-alt: #f4e9c9;
-            --text-light: #2a2013;
-            --text-muted: #7d6c4c;
-            --border-color: #e3d2a0;
-            --shadow-color: rgba(120, 96, 40, 0.18);
-        }
+    --shadow-raised: 8px 8px 20px rgba(31, 96, 62, 0.12), -8px -8px 20px rgba(255, 255, 255, 0.9);
+    --shadow-pressed: inset 4px 4px 10px rgba(31, 96, 62, 0.14), inset -4px -4px 10px rgba(255, 255, 255, 0.85);
+    --shadow-float: 0 18px 40px rgba(31, 96, 62, 0.14);
+}
 
-        * { box-sizing: border-box; }
+[data-theme="light"] {
+    --bg: #eefcf4;
+    --card-bg: #ffffff;
+    --card-bg-alt: #f2faf5;
+    --text-light: #163126;
+    --text-muted: #6c8a7a;
+    --border-color: rgba(34, 163, 93, 0.16);
+    --shadow-color: rgba(31, 96, 62, 0.16);
+}
 
-        body {
-            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            background-image:
-                radial-gradient(circle at 12% 8%, rgba(201,162,77,0.10), transparent 40%),
-                radial-gradient(circle at 88% 92%, rgba(63,122,94,0.14), transparent 45%);
-            color: var(--text-light);
-            margin: 0;
-            padding: 32px 15px;
-            display: flex;
-            justify-content: center;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
+/* وضع داكن اختياري لنفس الهوية (أخضر غامق بدل الأبيض) */
+[data-theme="dark"] {
+    --bg: #0e1f16;
+    --card-bg: #14291d;
+    --card-bg-alt: #193324;
+    --text-light: #eafaf0;
+    --text-muted: #86a996;
+    --border-color: rgba(52, 193, 124, 0.22);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-raised: 8px 8px 18px rgba(0,0,0,0.45), -8px -8px 18px rgba(52,193,124,0.06);
+    --shadow-pressed: inset 4px 4px 10px rgba(0,0,0,0.45), inset -4px -4px 10px rgba(52,193,124,0.05);
+}
 
-        ::selection { background: var(--gold); color: var(--ink-deep); }
+* { box-sizing: border-box; }
 
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; opacity: 0.6; }
+body {
+    font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(circle at 8% 6%, rgba(47, 184, 114, 0.16), transparent 42%),
+        radial-gradient(circle at 92% 12%, rgba(34, 163, 93, 0.10), transparent 40%),
+        radial-gradient(circle at 12% 92%, rgba(13, 148, 136, 0.10), transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(47, 184, 114, 0.14), transparent 45%);
+    background-attachment: fixed;
+    color: var(--text-light);
+    margin: 0;
+    padding: 32px 15px;
+    display: flex;
+    justify-content: center;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
 
-        .container {
-            width: 100%;
-            max-width: 760px;
-            background-color: var(--card-bg);
-            background-image:
-                linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
-                linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
-                linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
-                linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold));
-            background-repeat: no-repeat;
-            background-size:
-                26px 2px, 2px 26px,
-                26px 2px, 2px 26px,
-                26px 2px, 2px 26px,
-                26px 2px, 2px 26px;
-            background-position:
-                16px 16px, 16px 16px,
-                calc(100% - 42px) 16px, calc(100% - 18px) 16px,
-                16px calc(100% - 18px), 16px calc(100% - 42px),
-                calc(100% - 42px) calc(100% - 18px), calc(100% - 18px) calc(100% - 42px);
-            padding: 34px 28px;
-            border-radius: 6px;
-            box-shadow: 0 24px 60px var(--shadow-color), inset 0 0 0 1px var(--border-color), inset 0 0 0 8px var(--bg);
-            border: 1px solid var(--border-color);
-            outline: 1px solid var(--border-color);
-            outline-offset: -12px;
-            position: relative;
-            animation: folioIn 0.6s ease both;
-        }
+::selection { background: var(--jade); color: #ffffff; }
 
-        @keyframes folioIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--jade); border-radius: 10px; opacity: 0.6; }
 
-        .menu-toggle {
-            position: absolute;
-            top: 22px;
-            left: 22px;
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--border-color);
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.25s, color 0.25s, border-color 0.25s;
-            z-index: 10;
-        }
-        .menu-toggle:hover { background: var(--gold); color: var(--ink-deep); border-color: var(--gold); }
+.container {
+    width: 100%;
+    max-width: 760px;
+    background-color: var(--card-bg);
+    background-image: none;
+    padding: 40px 32px;
+    border-radius: 28px;
+    box-shadow: var(--shadow-float), 0 1px 0 rgba(255,255,255,0.6) inset;
+    border: 1px solid var(--border-color);
+    position: relative;
+    animation: folioIn 0.6s ease both;
+}
 
-        .drawer {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 280px;
-            height: 100%;
-            background: var(--card-bg);
-            box-shadow: 12px 0 40px var(--shadow-color);
-            z-index: 1000;
-            transition: left 0.35s cubic-bezier(.22,.61,.36,1);
-            padding: 25px;
-            box-sizing: border-box;
-            border-left: 1px solid var(--border-color);
-            overflow-y: auto;
-        }
-        .drawer.open { left: 0; }
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 14px;
-        }
-        .drawer-header h3 { font-family: 'Amiri', serif; color: var(--gold-soft); }
-        .close-drawer {
-            background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);
-            transition: color 0.2s;
-        }
-        .close-drawer:hover { color: var(--gold); }
-        .drawer-item {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: 12px 14px;
-            margin-bottom: 8px;
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid transparent;
-            border-right: 2px solid transparent;
-            border-radius: 6px;
-            text-align: right;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background 0.2s, border-color 0.2s;
-        }
-        .drawer-item:hover { background: var(--card-bg-alt); border-right-color: var(--gold); }
+@keyframes folioIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-        h1, h2, h3 {
-            font-family: 'Amiri', 'Georgia', serif;
-            text-align: center;
-            color: var(--text-light);
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        h1 { font-size: 26px; letter-spacing: 0.3px; }
-        h2 { font-size: 21px; }
-        h3 { font-size: 18px; }
+.menu-toggle {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    background: var(--card-bg);
+    color: var(--gold-soft);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-raised);
+    transition: box-shadow 0.2s, transform 0.2s, color 0.2s;
+    z-index: 10;
+}
+.menu-toggle:hover { color: var(--jade); transform: translateY(-1px); }
+.menu-toggle:active { box-shadow: var(--shadow-pressed); transform: translateY(0); }
 
-        .profile-header { text-align: center; margin-bottom: 8px; }
-        .profile-header::after {
-            content: "";
-            display: block;
-            width: 110px;
-            height: 1px;
-            margin: 16px auto 0;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-        .profile-subtitle {
-            color: var(--gold);
-            font-size: 14px;
-            margin-top: 10px;
-            margin-bottom: 25px;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-        }
+.drawer {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    background: var(--card-bg);
+    box-shadow: 16px 0 50px rgba(31, 96, 62, 0.18);
+    z-index: 1000;
+    transition: left 0.35s cubic-bezier(.22,.61,.36,1);
+    padding: 25px;
+    box-sizing: border-box;
+    border-left: 1px solid var(--border-color);
+    overflow-y: auto;
+}
+.drawer.open { left: 0; }
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+}
+.drawer-header h3 { font-family: 'Amiri', serif; color: var(--gold-soft); }
+.close-drawer {
+    background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);
+    transition: color 0.2s;
+}
+.close-drawer:hover { color: var(--jade); }
+.drawer-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 13px 14px;
+    margin-bottom: 8px;
+    background: var(--card-bg-alt);
+    color: var(--text-light);
+    border: 1px solid transparent;
+    border-radius: 14px;
+    text-align: right;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.drawer-item:hover { background: var(--card-bg); box-shadow: var(--shadow-raised); transform: translateX(-2px); }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg-alt);
-            padding: 12px 18px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-weight: bold;
-            color: var(--text-light);
-            border: 1px solid var(--border-color);
-        }
+h1, h2, h3 {
+    font-family: 'Amiri', 'Georgia', serif;
+    text-align: center;
+    color: var(--text-light);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+h1 { font-size: 27px; letter-spacing: 0.3px; color: var(--gold-soft); }
+h2 { font-size: 21px; }
+h3 { font-size: 18px; }
 
-        .dad-coin-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--ink-deep);
-            padding: 6px 14px;
-            border-radius: 30px;
-            border: 1px solid var(--gold);
-            color: var(--gold-soft);
-        }
+.profile-header { text-align: center; margin-bottom: 8px; }
+.profile-header::after {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 4px;
+    margin: 16px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--jade), var(--ai-color));
+}
 
-        .coin-icon {
-            width: 24px; height: 24px; background: var(--gold); color: var(--ink-deep);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: bold; font-family: 'Amiri', serif;
-        }
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg-alt);
+    padding: 14px 20px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    color: var(--text-light);
+    box-shadow: var(--shadow-pressed);
+    border: none;
+}
 
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); font-size: 14px; }
+.dad-coin-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card-bg);
+    padding: 7px 16px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-raised);
+    color: var(--gold-soft);
+}
 
-        input[type="text"], input[type="email"], textarea {
-            width: 100%; padding: 14px 15px; border: 1px solid var(--border-color);
-            background-color: var(--card-bg-alt); color: var(--text-light);
-            border-radius: 8px; box-sizing: border-box; font-size: 15px; outline: none;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-        input:focus, textarea:focus { border-color: var(--gold); }
-        input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: 0.7; }
+.coin-icon {
+    width: 24px; height: 24px; background: linear-gradient(135deg, var(--jade), var(--ai-color)); color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: bold; font-family: 'Amiri', serif;
+    box-shadow: 0 3px 8px rgba(34,163,93,0.35);
+}
 
-        .btn {
-            width: 100%; background-color: var(--jade); color: #f3ead9;
-            padding: 14px; border: 1px solid var(--jade); border-radius: 8px; font-size: 16px;
-            font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; transition: all 0.25s; margin-top: 10px;
-            letter-spacing: 0.2px;
-        }
-        .btn:hover { background-color: var(--jade-deep); transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,0.25); }
-        .btn-alt { background-color: transparent; color: var(--text-light); border-color: var(--border-color); }
-        .btn-alt:hover { background-color: var(--card-bg-alt); border-color: var(--gold); color: var(--gold-soft); }
-        .hidden { display: none !important; }
+.overall-progress-box {
+    background: var(--card-bg-alt);
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-pressed);
+}
+.overall-progress-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--gold-soft);
+    margin-bottom: 8px;
+}
+.progress-bar-bg {
+    width: 100%;
+    height: 14px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-pressed);
+}
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, var(--jade), var(--ai-color));
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+}
 
-        .path-grid { display: flex; flex-direction: column; gap: 18px; margin: 20px 0; }
-        .stage-box {
-            background: var(--card-bg-alt);
-            border: 1px solid var(--border-color);
-            border-top: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 18px;
-        }
-        .stage-title {
-            font-family: 'Amiri', serif;
-            font-weight: 700;
-            color: var(--gold-soft);
-            margin-bottom: 14px;
-            font-size: 18px;
-            text-align: center;
-        }
-        .levels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.stat-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: var(--shadow-raised);
+    transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); }
+.stat-value {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--jade-deep);
+    margin-bottom: 4px;
+}
+.stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+}
 
-        .level-node {
-            height: 48px; border-radius: 50%; background: var(--ink-deep); color: var(--text-muted);
-            display: flex; justify-content: center; align-items: center;
-            font-weight: bold; font-size: 12px; cursor: pointer; transition: all 0.2s;
-            border: 1px solid var(--border-color);
-        }
-        .level-node.active {
-            background: var(--jade); color: #fff;
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 0 3px rgba(201,162,77,0.18);
-        }
-        .level-node.completed { background: var(--accent); color: #fff; border-color: var(--accent); }
-        .level-node.locked { cursor: not-allowed; opacity: 0.35; }
-        .level-node:not(.locked):hover { transform: translateY(-2px); }
+.badges-section {
+    background: var(--card-bg-alt);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-pressed);
+}
+.badges-title {
+    font-family: 'Amiri', serif;
+    font-size: 16px;
+    color: var(--gold-soft);
+    margin-bottom: 10px;
+    text-align: center;
+}
+.badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.badge-item {
+    background: var(--card-bg);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.55;
+    box-shadow: var(--shadow-pressed);
+    transition: all 0.3s ease;
+}
+.badge-item.unlocked {
+    opacity: 1;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--jade), var(--ai-color));
+    box-shadow: 0 6px 16px rgba(34,163,93,0.35);
+}
 
-        .option-btn {
-            display: block; width: 100%; padding: 15px 16px; margin: 10px 0;
-            background-color: var(--card-bg-alt); border: 1px solid var(--border-color); border-radius: 8px;
-            text-align: right; cursor: pointer; font-size: 15px; font-family: inherit;
-            transition: all 0.2s; color: var(--text-light);
-            border-right: 3px solid transparent;
-        }
-        .option-btn:hover { border-color: var(--gold); border-right-color: var(--gold); background-color: var(--card-bg); }
-        .correct { background-color: rgba(79, 143, 92, 0.18) !important; border-color: var(--accent) !important; border-right-color: var(--accent) !important; color: var(--text-light); }
-        .wrong { background-color: rgba(168, 64, 47, 0.18) !important; border-color: var(--danger) !important; border-right-color: var(--danger) !important; color: var(--text-light); }
+.form-group { margin-bottom: 20px; }
+label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); font-size: 14px; }
 
-        .ai-card {
-            margin-top: 20px; padding: 18px 18px 18px 20px;
-            background: var(--card-bg-alt);
-            border: 1px solid var(--border-color);
-            border-right: 3px solid var(--ai-color);
-            border-radius: 10px; color: var(--text-light);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        .ai-header {
-            display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px;
-            color: var(--ai-color); margin-bottom: 12px; font-family: 'Amiri', serif;
-        }
+input[type="text"], input[type="email"], textarea {
+    width: 100%; padding: 15px 16px; border: none;
+    background-color: var(--card-bg-alt); color: var(--text-light);
+    border-radius: 14px; box-sizing: border-box; font-size: 15px; outline: none;
+    font-family: inherit;
+    box-shadow: var(--shadow-pressed);
+    transition: box-shadow 0.2s;
+}
+input:focus, textarea:focus { box-shadow: var(--shadow-pressed), 0 0 0 3px rgba(47,184,114,0.25); }
+input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: 0.7; }
 
-        .yt-btn {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            background-color: var(--yt-red); color: white; text-decoration: none;
-            padding: 12px; border-radius: 8px; font-weight: bold; font-size: 15px;
-            margin-top: 10px; transition: background 0.25s; cursor: pointer; border: none; width: 100%;
-        }
-        .yt-btn:hover { background-color: #8a3125; }
+.btn {
+    width: 100%; background: linear-gradient(135deg, var(--jade), var(--jade-deep)); color: #ffffff;
+    padding: 15px; border: none; border-radius: 16px; font-size: 16px;
+    font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; transition: all 0.25s; margin-top: 10px;
+    letter-spacing: 0.2px;
+    box-shadow: 0 10px 22px rgba(34,163,93,0.32);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(34,163,93,0.4); }
+.btn:active { transform: translateY(0); box-shadow: 0 6px 14px rgba(34,163,93,0.3); }
+.btn-alt {
+    background: var(--card-bg); color: var(--text-light);
+    box-shadow: var(--shadow-raised);
+}
+.btn-alt:hover { color: var(--gold-soft); box-shadow: var(--shadow-raised); transform: translateY(-2px); }
+.hidden { display: none !important; }
 
-        .feedback-box { margin-top: 15px; padding: 14px 15px; border-radius: 8px; font-size: 15px; font-weight: 600; }
-        .feedback-correct { background-color: rgba(79, 143, 92, 0.16); color: #cfe9d2; border-right: 3px solid var(--accent); }
-        .feedback-wrong { background-color: rgba(168, 64, 47, 0.16); color: #f0d2cd; border-right: 3px solid var(--danger); }
+.path-grid { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.stage-box {
+    background: var(--card-bg-alt);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--shadow-pressed);
+    position: relative;
+    overflow: hidden;
+}
+.stage-box::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,184,114,0.16), transparent 70%);
+}
+.stage-title {
+    font-family: 'Amiri', serif;
+    font-weight: 700;
+    color: var(--gold-soft);
+    margin-bottom: 14px;
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+}
+.levels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; position: relative; }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(14, 23, 20, 0.88); display: flex; justify-content: center;
-            align-items: center; z-index: 2000; backdrop-filter: blur(2px);
-        }
-        .modal-box {
-            background: var(--card-bg); border: 1px solid var(--gold);
-            padding: 25px; border-radius: 12px; width: 90%; max-width: 450px;
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); color: var(--text-light);
-        }
-        .modal-box h3 { font-family: 'Amiri', serif; }
-        .ad-placeholder {
-            background: var(--card-bg-alt); border: 1px dashed var(--border-color);
-            padding: 40px 15px; margin: 15px 0; border-radius: 8px;
-            color: var(--text-muted); font-size: 14px;
-        }
+.level-node {
+    height: 50px; border-radius: 50%; background: var(--card-bg); color: var(--text-muted);
+    display: flex; justify-content: center; align-items: center;
+    font-weight: bold; font-size: 12px; cursor: pointer; transition: all 0.2s;
+    box-shadow: var(--shadow-raised);
+}
+.level-node.active {
+    background: linear-gradient(135deg, var(--jade), var(--ai-color)); color: #fff;
+    box-shadow: 0 8px 18px rgba(34,163,93,0.4);
+}
+.level-node.completed {
+    background: var(--card-bg); color: var(--jade-deep);
+    box-shadow: var(--shadow-pressed);
+}
+.level-node.locked { cursor: not-allowed; opacity: 0.4; box-shadow: var(--shadow-pressed); }
+.level-node:not(.locked):hover { transform: translateY(-3px) scale(1.04); }
 
-        a.drawer-item { color: var(--text-light); }
+.option-btn {
+    display: block; width: 100%; padding: 16px 18px; margin: 10px 0;
+    background-color: var(--card-bg); border: none; border-radius: 16px;
+    text-align: right; cursor: pointer; font-size: 15px; font-family: inherit;
+    transition: all 0.2s; color: var(--text-light);
+    box-shadow: var(--shadow-raised);
+}
+.option-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(34,163,93,0.2); }
+.correct {
+    background: linear-gradient(135deg, rgba(52,193,124,0.18), rgba(13,148,136,0.14)) !important;
+    box-shadow: 0 0 0 2px var(--accent), var(--shadow-raised) !important;
+    color: var(--text-light);
+}
+.wrong {
+    background: rgba(224, 72, 62, 0.12) !important;
+    box-shadow: 0 0 0 2px var(--danger), var(--shadow-raised) !important;
+    color: var(--text-light);
+}
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-        }
+.ai-card {
+    margin-top: 20px; padding: 20px;
+    background: var(--card-bg-alt);
+    border-radius: 18px; color: var(--text-light);
+    box-shadow: var(--shadow-pressed);
+    position: relative;
+}
+.ai-card::before {
+    content: "";
+    position: absolute; top: 0; right: 24px; left: 24px; height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--ai-color), var(--jade));
+}
+.ai-header {
+    display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px;
+    color: var(--ai-color); margin-bottom: 12px; font-family: 'Amiri', serif;
+}
 
-        button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible {
-            outline: 2px solid var(--gold);
-            outline-offset: 2px;
-        }
+.yt-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: linear-gradient(135deg, var(--yt-red), #c73a30); color: white; text-decoration: none;
+    padding: 13px; border-radius: 14px; font-weight: bold; font-size: 15px;
+    margin-top: 10px; transition: all 0.25s; cursor: pointer; border: none; width: 100%;
+    box-shadow: 0 10px 20px rgba(224,72,62,0.3);
+}
+.yt-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 26px rgba(224,72,62,0.38); }
+
+.feedback-box { margin-top: 15px; padding: 15px 16px; border-radius: 14px; font-size: 15px; font-weight: 600; }
+.feedback-correct { background-color: rgba(52, 193, 124, 0.14); color: #1b7a45; box-shadow: var(--shadow-pressed); }
+.feedback-wrong { background-color: rgba(224, 72, 62, 0.1); color: #a8342b; box-shadow: var(--shadow-pressed); }
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 31, 22, 0.45); display: flex; justify-content: center;
+    align-items: center; z-index: 2000; backdrop-filter: blur(4px);
+}
+.modal-box {
+    background: var(--card-bg); border: none;
+    padding: 28px; border-radius: 24px; width: 90%; max-width: 450px;
+    text-align: center; box-shadow: var(--shadow-float); color: var(--text-light);
+}
+.modal-box h3 { font-family: 'Amiri', serif; }
+.ad-placeholder {
+    background: var(--card-bg-alt); border: 2px dashed var(--border-color);
+    padding: 40px 15px; margin: 15px 0; border-radius: 16px;
+    color: var(--text-muted); font-size: 14px;
+}
+
+a.drawer-item { color: var(--text-light); }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible {
+    outline: 2px solid var(--jade);
+    outline-offset: 2px;
+}
     </style>
 </head>
 <body>
@@ -427,14 +556,7 @@
         <button class="btn btn-alt" onclick="showArticlesList()">↩️ العودة لقائمة الدروس</button>
     </div>
 
-    <!-- 3.7 صفحة من نحن / عن الموقع -->
-    <div id="about-screen" class="hidden" style="text-align: right;">
-        <h2 style="text-align:center;">ℹ️ عن الموقع</h2>
-        <div id="about-body" style="line-height: 2; font-size: 16px;"></div>
-        <button class="btn btn-alt" onclick="backFromInfoScreen()">↩️ العودة للخلف</button>
-    </div>
-
-    <!-- 3.8 صفحة سياسة الخصوصية -->
+    <!-- 3.7 صفحة سياسة الخصوصية -->
     <div id="privacy-screen" class="hidden" style="text-align: right;">
         <h2 style="text-align:center;">🔒 سياسة الخصوصية</h2>
         <div id="privacy-body" style="line-height: 2; font-size: 16px;"></div>
@@ -453,9 +575,49 @@
     <!-- 5. خريطة المسارات -->
     <div id="map-screen" class="hidden">
         <h3>خريطة المسارات التعليمية</h3>
-        <p style="text-align: center; color: var(--text-muted); margin-top:-10px; margin-bottom:20px; font-size: 14px;">
+        <p style="text-align: center; color: var(--text-muted); margin-top:-10px; margin-bottom:15px; font-size: 14px;">
             جميع المسارات مفتوحة بالكامل! أكمل المستويات بالترتيب لفتح المستوى التالي في كل مسار.
         </p>
+
+        <!-- شريط تقدم عام -->
+        <div class="overall-progress-box">
+            <div class="overall-progress-title">
+                <span>📊 نسبة إتمام كل المسارات مجتمعة</span>
+                <span id="overall-progress-text">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="overall-progress-fill" class="progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <!-- إحصائيات شخصية -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div id="stat-total-questions" class="stat-value">0</div>
+                <div class="stat-label">الأسئلة المُجابة</div>
+            </div>
+            <div class="stat-card">
+                <div id="stat-success-rate" class="stat-value">0%</div>
+                <div class="stat-label">نسبة النجاح</div>
+            </div>
+            <div class="stat-card">
+                <div id="stat-max-streak" class="stat-value">0</div>
+                <div class="stat-label">أطول سلسلة صحيحة</div>
+            </div>
+        </div>
+
+        <!-- الشارات والإنجازات -->
+        <div class="badges-section">
+            <div class="badges-title">🏅 الشارات والإنجازات</div>
+            <div class="badges-grid">
+                <div id="badge-mubtadi" class="badge-item">🎖️ مسار المبتدئ</div>
+                <div id="badge-mutawassit" class="badge-item">🎖️ مسار المتوسط</div>
+                <div id="badge-shater" class="badge-item">🎖️ مسار الشاطر</div>
+                <div id="badge-daheeh" class="badge-item">🎖️ مسار الدحيح</div>
+                <div id="badge-ustath" class="badge-item">🎖️ مسار الأستاذ</div>
+            </div>
+        </div>
+
         <div class="path-grid" id="path-grid-container"></div>
     </div>
 
@@ -528,7 +690,7 @@
     <button class="drawer-item" onclick="toggleDrawer(); showArticlesList();">📚 الدروس والمقالات النحوية</button>
     <button class="drawer-item" onclick="toggleDrawer(); showPrivacyScreen();">🔒 سياسة الخصوصية</button>
     
-    <a href="https://wa.me/201150406540?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86" target="_blank" class="drawer-item">💬 تواصل مع عبد الرحمن عبر واتساب</a>
+    <a href="https://wa.me/201150406540?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%82" target="_blank" class="drawer-item">💬 تواصل مع عبد الرحمن عبر واتساب</a>
     <a href="https://facebook.com" target="_blank" class="drawer-item">📘 صفحة الفيسبوك الرسمية</a>
     <a href="https://instagram.com" target="_blank" class="drawer-item">📸 صفحة الإنستجرام</a>
 
@@ -540,7 +702,6 @@
 <script>
     const topicYoutubeBase = "https://www.youtube.com/results?search_query=";
 
-    // بنك أسئلة توسعي وشامل لمنع التكرار نهائياً
     const questionsDatabase = {
         mubtadi: [
             { id: "m1", q: "ما نوع الكلمة (معلّم) في: 'جاء المعلمُ'؟", c: "اسم", w: ["فعل", "حرف", "ظرف"], topic: "أقسام الكلمة", time: "45", exp: "تقبل (أل) التعريف وتدل على ذات فهي اسم." },
@@ -604,268 +765,22 @@
         { key: 'ustath', name: '👑 مسار الأستاذ', levels: 10 }
     ];
 
-    // ===== مقالات ودروس نحوية وبلاغية مكتوبة (محتوى أصلي) =====
     const articles = [
         {
             id: "art-tashbih",
             title: "التشبيه البليغ: التعريف والأمثلة",
-            body: `
-                <p>التشبيه البليغ هو أقوى أنواع التشبيه أثراً في المعنى، لأنه يُحذف منه كل من <strong>أداة التشبيه</strong> و<strong>وجه الشبه</strong>، ولا يبقى فيه إلا طرفا التشبيه: المشبَّه والمشبَّه به. وكلما قلّت أركان التشبيه الظاهرة، زادت قوة العلاقة بين الطرفين، حتى يكاد القارئ يشعر أن المشبَّه هو نفسه المشبَّه به.</p>
-                <p>مثال: <strong>"العلمُ نورٌ"</strong>. هنا حُذفت أداة التشبيه (كأنّ) ووجه الشبه (الهداية والانتشار)، فصار الأسلوب أبلغ من قولنا "العلم كالنور في الهداية".</p>
-                <p>ومن صوره الشائعة أن يأتي على هيئة تركيب إضافي، مثل: <strong>"نور العلم يضيء الطريق"</strong>، حيث أُضيف المشبَّه به (نور) إلى المشبَّه (العلم).</p>
-                <p><strong>نصيحة في الإعراب:</strong> إذا سُئلت عن نوع الصورة ووجدت مبتدأ وخبراً بينهما علاقة تشبيه دون أداة أو وجه شبه ظاهرَين، فاحكم بأنها تشبيه بليغ لا استعارة، لأن الاستعارة تتطلب حذف أحد الطرفين (المشبَّه أو المشبَّه به) لا حذف الأداة ووجه الشبه فقط.</p>
-            `
+            body: `<p>التشبيه البليغ هو أقوى أنواع التشبيه أثراً في المعنى، لأنه يُحذف منه كل من <strong>أداة التشبيه</strong> و<strong>وجه الشبه</strong>، ولا يبقى فيه إلا طرفا التشبيه: المشبَّه والمشبَّه به.</p><p>مثال: <strong>"العلمُ نورٌ"</strong>. هنا حُذفت أداة التشبيه ووجه الشبه، فصار الأسلوب أبلغ من قولنا "العلم كالنور في الهداية".</p>`
         },
         {
             id: "art-istiaara",
             title: "الاستعارة المكنية والتصريحية",
-            body: `
-                <p>الاستعارة نوع من التشبيه حُذف منه أحد طرفيه (المشبَّه أو المشبَّه به)، وتنقسم إلى قسمين رئيسيين:</p>
-                <p><strong>1. الاستعارة التصريحية:</strong> يُصرَّح فيها بلفظ المشبَّه به، ويُحذف المشبَّه. مثال: <strong>"واعتصموا بحبل الله"</strong>، فالمقصود هو دين الله (المشبَّه) الذي حُذف، وبقي لفظ "الحبل" (المشبَّه به) الذي يدل على الاعتصام والتمسك.</p>
-                <p><strong>2. الاستعارة المكنية:</strong> يُحذف فيها المشبَّه به، ولا يبقى منه إلا شيء من لوازمه أو صفاته يدل عليه. مثال: <strong>"ابتسمتِ الحياةُ"</strong>، فقد شُبّهت الحياة بإنسان (المشبَّه به المحذوف)، وذُكرت صفة من صفاته وهي "الابتسام".</p>
-                <p><strong>كيف تفرّق بينهما بسرعة؟</strong> اسأل نفسك: هل ذُكر اسم صريح لشيء آخر غير الموضوع الأصلي؟ إن كانت الإجابة نعم (مثل "حبل")، فهي تصريحية. وإن لم يُذكر إلا فعل أو صفة تخصّ الشيء المحذوف (مثل "ابتسمت")، فهي مكنية.</p>
-            `
-        },
-        {
-            id: "art-badal",
-            title: "البدل وأنواعه",
-            body: `
-                <p>البدل هو تابع يُذكر بعد اسم سابق (يُسمى المُبدَل منه) ليوضحه أو يخصصه، وهو المقصود الحقيقي بالحكم في الجملة. من أشهر أنواعه:</p>
-                <p><strong>1. بدل مطابق (كل من كل):</strong> يكون البدل هو نفس المُبدَل منه تماماً. مثال: "أَثنيتُ على الطالبِ أحمدَ" فـ"أحمد" بدل مطابق من "الطالب".</p>
-                <p><strong>2. بدل بعض من كل:</strong> يكون البدل جزءاً من المبدَل منه، ويحتاج إلى ضمير يربطه به. مثال: "قرأتُ الكتابَ نصفَه".</p>
-                <p><strong>3. بدل اشتمال:</strong> لا يكون البدل جزءاً حسّياً من المبدَل منه، بل معنىً يشتمل عليه، ويحتاج أيضاً إلى ضمير رابط. مثال: "أعجبني الطالبُ خُلقُه".</p>
-                <p><strong>ملاحظة إعرابية مهمة:</strong> يُعرب البدل تبعاً لموقع المُبدَل منه من حيث الرفع أو النصب أو الجر، فإن كان المُبدَل منه مرفوعاً كان البدل مرفوعاً، وهكذا.</p>
-            `
-        },
-        {
-            id: "art-istithnaa",
-            title: "أسلوب الاستثناء بـ (إلا) وأحكامه",
-            body: `
-                <p>أسلوب الاستثناء يتكوّن من ثلاثة أركان: <strong>المستثنى منه</strong> (الاسم العام الذي وقع عليه الحكم)، و<strong>أداة الاستثناء</strong> (وأشهرها "إلا")، و<strong>المستثنى</strong> (الاسم المخرَج من الحكم). ويُقسَّم الكلام إلى ثلاث حالات:</p>
-                <p><strong>1. كلام تام مثبت:</strong> ذُكر فيه المستثنى منه ولم يُسبق الكلام بنفي أو نهي أو استفهام. في هذه الحالة يكون المستثنى <strong>واجب النصب</strong>. مثال: "حضر الطلابُ إلا طالباً".</p>
-                <p><strong>2. كلام تام منفي:</strong> ذُكر فيه المستثنى منه لكن الكلام مسبوق بنفي. هنا يجوز في المستثنى النصب على الاستثناء، أو إعرابه بدلاً من المستثنى منه (وهو الأفصح). مثال: "ما حضر الطلابُ إلا طالباً / إلا طالبٌ".</p>
-                <p><strong>3. كلام ناقص منفي (المفرَّغ):</strong> لم يُذكر فيه المستثنى منه، فيُعرب المستثنى حسب موقعه في الجملة كأن "إلا" غير موجودة. مثال: "ما ينهض بالوطن إلا أبناؤه" (أبناؤه: فاعل مرفوع).</p>
-            `
-        },
-        {
-            id: "art-naat",
-            title: "النعت (الصفة) وأنواعه",
-            body: `
-                <p>النعت تابع يُذكر لتوضيح صفة في الاسم الذي قبله (المنعوت)، ويتبعه في الإعراب (رفعاً ونصباً وجراً) وفي التعريف والتنكير. وينقسم إلى نوعين رئيسيين:</p>
-                <p><strong>1. النعت المفرد (الحقيقي):</strong> وهو كلمة واحدة تصف المنعوت مباشرة، ويطابقه في العدد والنوع أيضاً. مثال: "جاء الطالبُ المجتهدُ".</p>
-                <p><strong>2. النعت الجملة (السببي):</strong> وهو جملة اسمية أو فعلية تقع بعد اسم نكرة لوصفه، وتحتاج إلى رابط (ضمير) يعود على المنعوت. مثال: "سمعتُ طائراً يُغرِّد" فجملة "يغرد" في محل نصب نعت لـ"طائراً".</p>
-                <p><strong>قاعدة ذهبية:</strong> الجمل بعد النكرات صفات، والجمل بعد المعارف أحوال. فإذا جاءت الجملة بعد اسم نكرة، فهي نعت غالباً، أما إذا جاءت بعد اسم معرفة، فهي حال.</p>
-            `
-        },
-        {
-            id: "art-tamyeez",
-            title: "التمييز: أنواعه وحالاته",
-            body: `
-                <p>التمييز اسم نكرة منصوب يُزيل غموضاً في كلمة أو نسبة سابقة، ويُجيب عن سؤال "ما نوعه؟" وينقسم إلى قسمين أساسيين:</p>
-                <p><strong>1. تمييز الذات (الملفوظ):</strong> يوضح غموض اسم مذكور صراحة، ويكثر بعد الأعداد والمقادير (الوزن، الكيل، المساحة). مثال: "اشتريتُ كيلو تفاحاً"، و"حضر عشرون طالباً".</p>
-                <p><strong>2. تمييز النسبة (الملحوظ):</strong> يوضح غموض نسبة الفعل إلى فاعله أو مفعوله، ويكون محوَّلاً في الأصل عن فاعل أو مفعول به أو مبتدأ. مثال: "طابتِ الإسكندريةُ هواءً" (الأصل: طاب هواؤها، فحُوِّل الفاعل إلى تمييز).</p>
-                <p><strong>علامته الإعرابية:</strong> التمييز في الغالب اسم نكرة منصوب، ويجوز جرّه في بعض الصور بعد الأعداد (مئة كتابٍ) أو بـ"من" (كوب من الماء).</p>
-            `
-        },
-        {
-            id: "art-jumla-ismiyya",
-            title: "الجملة الاسمية: المبتدأ والخبر",
-            body: `
-                <p>الجملة الاسمية هي التي تبدأ باسم، وتتكون في أصلها من ركنين: <strong>المبتدأ</strong> وهو الاسم المرفوع الذي تبدأ به الجملة، و<strong>الخبر</strong> وهو ما يكمل معنى المبتدأ ويتم به الفائدة.</p>
-                <p>مثال بسيط: "الحديقةُ جميلةٌ" (الحديقة: مبتدأ مرفوع، جميلة: خبر مرفوع).</p>
-                <p>وقد يكون الخبر جملة كاملة (اسمية أو فعلية) لها محل من الإعراب، كما في: "الحديقةُ أزهارُها جميلةٌ"، حيث "أزهارها جميلة" جملة اسمية في محل رفع خبر المبتدأ "الحديقة"، وتحتاج إلى رابط يربطها بالمبتدأ، وهو هنا الضمير "ها" العائد على الحديقة.</p>
-                <p>وقد يتقدّم الخبر على المبتدأ في بعض الأساليب، مثل أسلوب المدح والذم: "نِعْمَ العملُ الصدقُ"، حيث يُعرب المخصوص بالمدح (الصدق) مبتدأ مؤخراً، وجملة "نعم العمل" خبراً مقدماً.</p>
-            `
-        },
-        {
-            id: "art-fael",
-            title: "الفاعل ونائب الفاعل",
-            body: `
-                <p>الفاعل اسم مرفوع يقع بعد فعل تام مبني للمعلوم، ويدل على من قام بالفعل أو اتّصف به. مثال: "أشرقتِ الشمسُ" (الشمس: فاعل مرفوع).</p>
-                <p>أما إذا بُني الفعل للمجهول (لعدم ذِكر الفاعل أو عدم أهمية ذِكره)، فإن المفعول به يحل محل الفاعل ويأخذ حكمه في الرفع، ويُسمى حينئذٍ <strong>نائب فاعل</strong>. مثال: "كُتِبَ الدرسُ" (الدرس: نائب فاعل مرفوع).</p>
-                <p><strong>قاعدة صياغة الفعل المبني للمجهول:</strong> يُضم أول الفعل الماضي ويُكسر ما قبل آخره (كَتَبَ ← كُتِبَ)، ويُضم أول الفعل المضارع ويُفتح ما قبل آخره (يَكتُبُ ← يُكتَبُ).</p>
-                <p>ويمكن أن ينوب عن الفاعل أيضاً الظرف أو الجار والمجرور أو المصدر إذا لم يوجد مفعول به صريح، مثل: "سُهِرَ ليلةَ الامتحان".</p>
-            `
-        },
-        {
-            id: "art-afal-khamsa",
-            title: "الأفعال الخمسة",
-            body: `
-                <p>الأفعال الخمسة هي كل فعل مضارع اتصلت به إحدى الضمائر التالية: ألف الاثنين، أو واو الجماعة، أو ياء المخاطبة. وتُسمى "خمسة" لأنها في الحقيقة صيغتان (تفعلان/يفعلان) تتكرران مع ضمائر مختلفة فتنتج خمس صور.</p>
-                <p>أمثلة: يكتبانِ - تكتبانِ - يكتبونَ - تكتبونَ - تكتبينَ.</p>
-                <p><strong>القاعدة الإعرابية الأساسية:</strong> تُرفع الأفعال الخمسة بثبوت النون، وتُنصب وتُجزم بحذف النون.</p>
-                <p>مثال على الرفع: "الطالبانِ يكتبانِ الدرسَ" (يكتبان: فعل مضارع مرفوع وعلامة رفعه ثبوت النون).</p>
-                <p>مثال على الجزم: "لم يكتبا الدرسَ" (يكتبا: فعل مضارع مجزوم وعلامة جزمه حذف النون).</p>
-            `
-        },
-        {
-            id: "art-asmaa-khamsa",
-            title: "الأسماء الخمسة",
-            body: `
-                <p>الأسماء الخمسة هي: أب، أخ، حم، فو، ذو (بمعنى صاحب)، وتُعرب بحروف العلة بدلاً من الحركات، بشرط أن تكون مفردة (غير مثنّاة ولا مجموعة) ومضافة إلى غير ياء المتكلم.</p>
-                <p><strong>علامات إعرابها:</strong></p>
-                <p>• الرفع بالواو: "جاء أبوك".</p>
-                <p>• النصب بالألف: "رأيتُ أباك".</p>
-                <p>• الجر بالياء: "سلّمتُ على أبيك".</p>
-                <p><strong>ملاحظة:</strong> إذا أُضيفت هذه الأسماء إلى ياء المتكلم (أبي، أخي)، فإنها تُعرب بحركات مقدرة على ما قبل الياء منع من ظهورها اشتغال المحل بحركة المناسبة، لا بالحروف.</p>
-            `
-        },
-        {
-            id: "art-mamnoo-sarf",
-            title: "الممنوع من الصرف",
-            body: `
-                <p>الممنوع من الصرف اسم معرب لا يُنوَّن، ولا يُجر بالكسرة إلا في حالة واحدة، وذلك لشبهه بالفعل من ناحيتين أو أكثر. من أشهر أسبابه:</p>
-                <p>• صيغة منتهى الجموع (مساجد، مصابيح).</p>
-                <p>• العلَم المؤنث لفظاً أو معنى (فاطمة، زينب).</p>
-                <p>• العلَم الأعجمي الزائد على ثلاثة أحرف (إبراهيم).</p>
-                <p>• الوصف على وزن "أفعل" (أحمر، أفضل).</p>
-                <p>• العلَم على وزن الفعل (أحمد، يزيد).</p>
-                <p><strong>حكمه الإعرابي:</strong> يُرفع بالضمة، ويُنصب بالفتحة، ويُجر بالفتحة نيابة عن الكسرة، إلا إذا أُضيف أو دخلت عليه (أل)، فحينئذٍ يُجر بالكسرة كباقي الأسماء. مثال: "مررتُ بمساجدَ" (بالفتحة)، لكن: "مررتُ بالمساجدِ" (بالكسرة لأنه عُرِّف بأل).</p>
-            `
-        },
-        {
-            id: "art-maqsoor-manqoos-mamdood",
-            title: "الاسم المقصور والمنقوص والممدود",
-            body: `
-                <p>هذه ثلاثة أنواع من الأسماء المعتلة الآخر، ولكل منها خصائصه:</p>
-                <p><strong>1. الاسم المقصور:</strong> اسم معرب ينتهي بألف لازمة مفتوح ما قبلها، مثل: "مصطفى، الفتى". تُقدَّر عليه جميع الحركات الإعرابية (الرفع والنصب والجر) لتعذر ظهورها على الألف.</p>
-                <p><strong>2. الاسم المنقوص:</strong> اسم معرب ينتهي بياء لازمة مكسور ما قبلها، مثل: "القاضي، الداعي". تُقدَّر عليه حركتا الرفع والجر، وتظهر عليه الفتحة في حالة النصب. وإذا كان نكرة، تُحذف ياؤه في حالتي الرفع والجر (قاضٍ، داعٍ) وتبقى في النصب (قاضياً).</p>
-                <p><strong>3. الاسم الممدود:</strong> اسم معرب ينتهي بهمزة قبلها ألف زائدة، مثل: "صحراء، بناء". تظهر عليه جميع الحركات الإعرابية بلا تقدير لأنها تظهر على الهمزة نفسها.</p>
-            `
-        },
-        {
-            id: "art-jam-mudhakkar",
-            title: "جمع المذكر السالم والملحق به",
-            body: `
-                <p>جمع المذكر السالم هو ما دلّ على أكثر من اثنين بزيادة واو ونون أو ياء ونون على مفرده، مع بقاء صورة المفرد كما هي دون تغيير. ويُشترط في الاسم المفرَد المُراد جمعه أن يكون عَلَماً لمذكر عاقل خالياً من التاء، أو صفة لمذكر عاقل كذلك.</p>
-                <p>أمثلة: معلِّم ← معلِّمون / معلِّمين. مسلم ← مسلمون / مسلمين.</p>
-                <p><strong>إعرابه:</strong> يُرفع بالواو، ويُنصب ويُجر بالياء.</p>
-                <p><strong>الملحق بجمع المذكر السالم:</strong> ألفاظ تُعامَل معاملة جمع المذكر السالم في الإعراب رغم أنها لا تستوفي شروطه (كأن يكون مفردها غير عاقل، أو لا مفرد لها من لفظها)، مثل: "بنون، عالَمون، أهلون"، وكذلك ملحقات مثل "أولو، عشرون" وأخواتها من ألفاظ العقود.</p>
-            `
-        },
-        {
-            id: "art-mushtaqqat",
-            title: "المشتقات: اسم الفاعل واسم المفعول",
-            body: `
-                <p>المشتقات ألفاظ تُصاغ من الفعل لتدل على معنى مرتبط بصاحب الحدث أو بمن وقع عليه الفعل، ومن أهمها:</p>
-                <p><strong>1. اسم الفاعل:</strong> يدل على من فعل الحدث أو اتّصف به. يُصاغ من الثلاثي على وزن "فاعِل" (كتب ← كاتب، لعب ← لاعب)، ومن غير الثلاثي بقلب حرف المضارعة ميماً مضمومة وكسر ما قبل الآخر (استخرج ← مُستخرِج).</p>
-                <p><strong>2. اسم المفعول:</strong> يدل على من وقع عليه الحدث. يُصاغ من الثلاثي على وزن "مفعول" (كتب ← مكتوب)، ومن غير الثلاثي بقلب حرف المضارعة ميماً مضمومة وفتح ما قبل الآخر (استخرج ← مُستخرَج).</p>
-                <p>ويعمل كل من اسم الفاعل واسم المفعول عمل فعلهما في رفع فاعل أو نائب فاعل، وقد ينصبان مفعولاً به إذا كانا بمعنى الحال أو الاستقبال.</p>
-            `
-        },
-        {
-            id: "art-madh-dham",
-            title: "أسلوب المدح والذم (نِعْمَ وبِئْسَ)",
-            body: `
-                <p>أسلوب المدح والذم يُستخدم للثناء على شيء أو ذمّه بأسلوب بلاغي مؤثر، وأشهر أدواته: "نِعْمَ" للمدح، و"بِئْسَ" للذم. وتتكون الجملة من فعل جامد (نعم/بئس) + فاعل + مخصوص بالمدح أو الذم.</p>
-                <p>مثال: "نِعْمَ العملُ الصدقُ". فـ"نعم" فعل ماضٍ جامد للمدح، و"العمل" فاعل مرفوع، و"الصدق" هو المخصوص بالمدح.</p>
-                <p><strong>إعراب المخصوص:</strong> يُعرب المخصوص بالمدح أو الذم على أحد وجهين: إما <strong>مبتدأ مؤخراً</strong> وجملة "نعم العمل" خبراً مقدماً، أو <strong>خبراً لمبتدأ محذوف</strong> تقديره "هو". وكلا الإعرابين صحيح ومقبول عند النحاة.</p>
-                <p>ويأتي الفاعل بعد "نعم" و"بئس" إما معرَّفاً بـ(أل)، أو مضافاً إلى معرَّف بها، أو ضميراً مستتراً مفسَّراً بتمييز بعده.</p>
-            `
-        },
-        {
-            id: "art-aqsam-kalima",
-            title: "أقسام الكلمة في اللغة العربية",
-            body: `
-                <p>تنقسم الكلمة في اللغة العربية إلى ثلاثة أقسام رئيسية: <strong>اسم</strong>، و<strong>فعل</strong>، و<strong>حرف</strong>.</p>
-                <p><strong>1. الاسم:</strong> كلمة تدل على ذات أو معنى غير مقترن بزمن، ومن علاماته: قبول (أل) التعريف، والتنوين، والجر، والنداء. مثال: كتاب، معلّم، سعادة.</p>
-                <p><strong>2. الفعل:</strong> كلمة تدل على حدث مقترن بزمن معيّن (ماضٍ، مضارع، أمر)، ومن علاماته: قبول تاء التأنيث الساكنة، وياء المخاطبة، ونون التوكيد. مثال: كتبَ، يكتبُ، اكتبْ.</p>
-                <p><strong>3. الحرف:</strong> كلمة لا تدل على معنى مستقل بذاتها، وإنما يظهر معناها في جملة، ولا تقبل أياً من علامات الاسم أو الفعل. مثال: في، على، هل، لم.</p>
-                <p><strong>فائدة عملية:</strong> إذا شككت في نوع كلمة، جرّب عليها علامات الاسم أولاً (كدخول أل)، فإن لم تقبلها جرّب علامات الفعل، وإن لم تقبل أياً منهما فهي حرف.</p>
-            `
-        },
-        {
-            id: "art-dhamair",
-            title: "الضمائر وأنواعها",
-            body: `
-                <p>الضمير اسم مبني يدل على متكلم أو مخاطب أو غائب، ويُستخدم للاختصار وتجنّب تكرار الاسم الظاهر. وتنقسم الضمائر من حيث الظهور إلى قسمين:</p>
-                <p><strong>1. الضمائر المنفصلة:</strong> وهي التي تُكتب كلمة مستقلة، وتنقسم إلى ضمائر رفع منفصلة (أنا، أنتَ، هو...) وضمائر نصب منفصلة (إيّاي، إيّاكَ، إيّاه...).</p>
-                <p><strong>2. الضمائر المتصلة:</strong> وهي التي تتصل بما قبلها (فعل أو اسم أو حرف) ولا تُنطق مستقلة، مثل: تاء الفاعل، والواو، والألف، والنون، وكاف الخطاب، وهاء الغائب، وياء المتكلم.</p>
-                <p><strong>ملاحظة إعرابية:</strong> الضمائر المتصلة تُعرب حسب موقعها؛ فقد تكون في محل رفع فاعل (كتبتُ)، أو في محل نصب مفعول به (أكرمَني)، أو في محل جر بالإضافة أو بحرف الجر (كتابُهُ، إليهِ).</p>
-            `
-        },
-        {
-            id: "art-jazm-mudarea",
-            title: "جزم الفعل المضارع وأدواته",
-            body: `
-                <p>يُجزم الفعل المضارع إذا سبقته إحدى أدوات الجزم، وتنقسم هذه الأدوات إلى نوعين: أدوات تجزم فعلاً واحداً (مثل: لم، لمّا، لا الناهية، لام الأمر)، وأدوات تجزم فعلين (فعل الشرط وجوابه)، مثل: إنْ، مَن، ما، مهما، أينما.</p>
-                <p><strong>علامات جزم الفعل المضارع:</strong></p>
-                <p>• السكون: إذا كان صحيح الآخر. مثال: "لم يكتبْ".</p>
-                <p>• حذف حرف العلة: إذا كان معتل الآخر. مثال: "لم يدعُ" (الأصل: يدعو).</p>
-                <p>• حذف النون: إذا كان من الأفعال الخمسة. مثال: "لم يكتبوا".</p>
-                <p><strong>مثال على أسلوب الشرط الجازم:</strong> "إنْ تجتهدْ تنجحْ"، فـ"تجتهد" فعل الشرط مجزوم، و"تنجح" جواب الشرط مجزوم أيضاً، وكلاهما بالسكون لأنهما صحيحا الآخر.</p>
-            `
-        },
-        {
-            id: "art-wazn-sarfi",
-            title: "الميزان الصرفي وطريقة استخدامه",
-            body: `
-                <p>الميزان الصرفي أداة يستخدمها علماء الصرف لمعرفة بنية الكلمة العربية وحروفها الأصلية والزائدة، ويُقاس على أصل ثلاثي هو (فَعَلَ)، حيث تقابل الفاء الحرف الأول من الكلمة، والعين الحرف الثاني، واللام الحرف الثالث.</p>
-                <p>مثال: كلمة "كَتَبَ" على وزن "فَعَلَ" تماماً، فالكاف تقابل الفاء، والتاء تقابل العين، والباء تقابل اللام.</p>
-                <p><strong>عند زيادة حروف على الكلمة:</strong> تُضاف نفس الحروف الزائدة إلى الوزن في نفس موضعها. مثال: "استخرجَ" أصلها الثلاثي "خرج" وزيد عليها همزة وسين وتاء، فيكون وزنها "استفعلَ".</p>
-                <p>ومن الأمثلة الشائعة: "انتصرَ" على وزن "افتعلَ" (زيدت الألف والتاء)، و"تعلَّمَ" على وزن "تفعَّلَ" (زيدت التاء وضُعِّفت العين).</p>
-                <p><strong>فائدة الميزان:</strong> يساعد على التمييز بين الحروف الأصلية للكلمة وحروفها الزائدة، وهو أساس في معرفة الجذر اللغوي للكلمة عند البحث في المعجم.</p>
-            `
-        },
-        {
-            id: "art-kam",
-            title: "كم الاستفهامية وكم الخبرية",
-            body: `
-                <p>"كم" اسم يُستخدم للدلالة على عدد، وتنقسم إلى نوعين رئيسيين يختلفان في المعنى والإعراب:</p>
-                <p><strong>1. كم الاستفهامية:</strong> يُستفهَم بها عن عدد مجهول، ويكون تمييزها اسماً نكرة مفرداً منصوباً. مثال: "كم كتاباً قرأتَ؟" (كتاباً: تمييز منصوب).</p>
-                <p><strong>2. كم الخبرية:</strong> تدل على التكثير من عدد معلوم، ويكون تمييزها اسماً نكرة مفرداً أو جمعاً مجروراً بالإضافة أو بـ"مِن". مثال: "كم كتابٍ قرأتُ!" (كتابٍ: تمييز مجرور بالإضافة).</p>
-                <p><strong>كيف تُفرّق بينهما؟</strong> انظر إلى حالة تمييز "كم": إن كان منصوباً مفرداً فهي استفهامية، وإن كان مجروراً (مفرداً أو جمعاً) فهي خبرية تدل على الكثرة لا السؤال.</p>
-                <p>ملحوظة: قد يتقدّم على "كم" حرف جر، مثل: "بكم درهمٍ اشتريتَ الكتابَ؟"، وفي هذه الحالة يُحذف التمييز أحياناً لدلالة السياق عليه.</p>
-            `
-        },
-        {
-            id: "art-huruf-jar",
-            title: "حروف الجر ومعانيها",
-            body: `
-                <p>حروف الجر كلمات تدخل على الاسم فتجره، وتربط بينه وبين ما قبله من فعل أو اسم أو معنى في الجملة. من أشهرها: من، إلى، عن، على، في، الباء، الكاف، اللام، رُبَّ، حتى، واو القسم، تاء القسم.</p>
-                <p>ولكل حرف جر معانٍ متعددة حسب السياق، فمثلاً حرف "في" يفيد الظرفية (زمانية أو مكانية) غالباً: "الكتابُ في الحقيبةِ"، وقد يفيد السببية أحياناً: "دخلت امرأةٌ النارَ في هرّةٍ".</p>
-                <p>وحرف "الباء" من أكثر الحروف تعدداً في المعاني، فيفيد الاستعانة: "كتبتُ بالقلمِ"، والسببية: "فرحتُ بنجاحي"، والقسم: "باللهِ لأصدقنّ".</p>
-                <p><strong>حكم الاسم بعد حرف الجر:</strong> يُعرب اسماً مجروراً وعلامة جره الكسرة الظاهرة أو المقدرة، وقد يُجر بالفتحة نيابة عن الكسرة إذا كان ممنوعاً من الصرف.</p>
-            `
-        },
-        {
-            id: "art-aghrad-amr",
-            title: "الأمر وأغراضه البلاغية",
-            body: `
-                <p>الأمر أسلوب إنشائي طلبي، يخرج أحياناً عن معناه الأصلي (طلب الفعل على وجه الإلزام) إلى معانٍ بلاغية أخرى يُفهم كل منها من سياق الكلام والقرائن المصاحبة له. من أبرز هذه الأغراض:</p>
-                <p><strong>1. التعجيز:</strong> عندما يكون الأمر موجهاً لمن يُعلم عجزه عن الفعل، لإظهار قصوره. مثال: "فأتوا بسورةٍ من مثلِه".</p>
-                <p><strong>2. الدعاء:</strong> إذا كان الطلب من الأدنى إلى الأعلى، كالدعاء من العبد إلى ربه. مثال: "ربِّ اغفر لي".</p>
-                <p><strong>3. النصح والإرشاد:</strong> مثال: "خُذِ العفوَ وأْمُرْ بالعُرفِ".</p>
-                <p><strong>4. التهديد:</strong> مثال: "اعملوا ما شئتُم".</p>
-                <p><strong>5. الإباحة والتسوية والتمني</strong> أيضاً من أغراضه الشائعة، ويُحدَّد الغرض دوماً بالسياق لا بصيغة الأمر وحدها.</p>
-            `
-        },
-        {
-            id: "art-adawat-nahwiyya",
-            title: "أدوات النفي والنهي في العربية",
-            body: `
-                <p>تتعدد أدوات النفي والنهي في اللغة العربية، ولكل أداة موقعها وحكمها الإعرابي الخاص. من أهمها:</p>
-                <p><strong>1. لا الناهية:</strong> تدخل على الفعل المضارع فتجزمه، وتفيد طلب الكف عن الفعل. مثال: "لا تُهملْ واجبَك" (تهمل: فعل مضارع مجزوم بلا الناهية وعلامة جزمه السكون).</p>
-                <p><strong>2. لا النافية:</strong> تنفي وقوع الفعل أو المعنى دون أن تؤثر في إعرابه غالباً. مثال: "لا يكذبُ المؤمنُ".</p>
-                <p><strong>3. لم ولمّا:</strong> حرفا نفي وجزم وقلب، يقلبان زمن الفعل المضارع إلى الماضي وينفيانه ويجزمانه. مثال: "لم يحضرْ الطالبُ".</p>
-                <p><strong>4. لن:</strong> حرف نفي ونصب، ينفي وقوع الفعل في المستقبل. مثال: "لن أتأخرَ عن موعدي".</p>
-                <p>التفريق بين "لا" الناهية و"لا" النافية يكون بالمعنى (طلب أم إخبار) وبأثرها في الفعل (جزم أم لا أثر لها).</p>
-            `
+            body: `<p>الاستعارة نوع من التشبيه حُذف منه أحد طرفيه. إن حُذف المشبَّه وصُرّح بالمشبَّه به فهي تصريحية، مثل: <strong>"واعتصموا بحبل الله"</strong>. وإن حُذف المشبَّه به وأُبقي على صفة من صفاته فهي مكنية، مثل: <strong>"ابتسمتِ الحياةُ"</strong>.</p>`
         }
     ];
 
-    let currentArticleReturnScreen = 'path-select-screen';
-
-    // ===== محتوى صفحة سياسة الخصوصية =====
     const privacyContent = `
-        <p>نحترم خصوصية زوّار هذه الصفحة، وتوضح هذه السياسة طبيعة البيانات التي يتم التعامل معها عند استخدامك للصفحة والغرض منها.</p>
-        <p><strong>1. البيانات التي نجمعها:</strong> عند تسجيل الدخول، قد نطلب منك اسمك وبريدك الإلكتروني (اختياري). كما يمكنك استخدام "الدخول السريع" دون تقديم أي بيانات شخصية على الإطلاق.</p>
-        <p><strong>2. أين تُخزَّن بياناتك؟</strong> يتم حفظ اسمك ونقاطك وتقدمك في المسارات التعليمية <strong>محلياً على جهازك فقط</strong> (عبر خاصية التخزين المحلي بالمتصفح)، ولا تُرسَل هذه البيانات إلى أي خادم خارجي أو قاعدة بيانات، ولا يطّلع عليها صاحب الصفحة.</p>
-        <p><strong>3. حذف بياناتك:</strong> يمكنك في أي وقت حذف جميع بياناتك المحفوظة على جهازك من خلال خيار "مسح التقدم المحفوظ والبدء من جديد" في القائمة الجانبية، وستُحذف نهائياً من متصفحك.</p>
-        <p><strong>4. الإعلانات:</strong> قد تظهر مساحات إعلانية (مثل Google AdSense) عند الانتقال لمشاهدة شرح على يوتيوب، وقد تستخدم هذه الجهات الخارجية تقنيات مثل ملفات تعريف الارتباط (Cookies) وفق سياساتها الخاصة، وليس لصاحب الصفحة تحكّم مباشر فيها.</p>
-        <p><strong>5. الروابط الخارجية:</strong> تحتوي الصفحة على روابط لمواقع خارجية (واتساب، فيسبوك، إنستجرام، يوتيوب)، ولا تتحمل هذه الصفحة مسؤولية سياسات الخصوصية الخاصة بتلك المواقع.</p>
-        <p><strong>6. التواصل:</strong> لأي استفسار يخص الخصوصية، يمكنك التواصل عبر رابط واتساب المتاح في القائمة الجانبية.</p>
-        <p style="color: var(--text-muted); font-size: 13px;">آخر تحديث لهذه السياسة: 2026.</p>
+        <p>نحترم خصوصية زوّار هذه الصفحة، وتوضح هذه السياسة طبيعة البيانات التي يتم التعامل معها عند استخدامك للصفحة الغرض منها.</p>
+        <p><strong>التخزين المحلّي:</strong> جميع بيانات تقدمك ونقاطك تُحفظ على جهازك الخاص فقط ولا تُنقل لأي سيرفر خارجي.</p>
     `;
 
     function showPrivacyScreen() {
@@ -882,7 +797,6 @@
     }
 
     function showArticlesList() {
-        // إخفاء كل الشاشات الرئيسية المحتملة قبل عرض قائمة المقالات
         ['auth-screen','otp-screen','path-select-screen','placement-screen','map-screen','quiz-screen','result-screen','article-detail-screen','privacy-screen']
             .forEach(id => document.getElementById(id).classList.add('hidden'));
 
@@ -917,12 +831,11 @@
 
     let user = {
         name: '', email: '', points: 0,
-        progress: { 'mubtadi': 1, 'mutawassit': 1, 'shater': 1, 'daheeh': 1, 'ustath': 1 }
+        progress: { 'mubtadi': 1, 'mutawassit': 1, 'shater': 1, 'daheeh': 1, 'ustath': 1 },
+        stats: { totalQuestions: 0, correctQuestions: 0, currentStreak: 0, maxStreak: 0 }
     };
 
-    // سجل لتتبع الأسئلة المعروضة سابقاً لعدم تكرارها
     let shownQuestionIds = new Set();
-
     let currentTrackKey = '';
     let currentLevelNum = 1;
     let wrongQuestionsPool = [];
@@ -935,7 +848,6 @@
     let placementScore = 0;
     let pendingYtLink = '';
 
-    // ===== حفظ واسترجاع التقدم محلياً (بدون سيرفر) =====
     const STORAGE_KEY = 'aldad_user_progress_v1';
 
     function saveUserData() {
@@ -945,12 +857,11 @@
                 email: user.email,
                 points: user.points,
                 progress: user.progress,
+                stats: user.stats,
                 shownQuestionIds: Array.from(shownQuestionIds)
             };
             localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-        } catch (e) {
-            console.warn('تعذر حفظ التقدم محلياً:', e);
-        }
+        } catch (e) { console.warn('تعذر حفظ التقدم محلياً:', e); }
     }
 
     function loadUserData() {
@@ -962,12 +873,10 @@
             user.email = saved.email || '';
             user.points = saved.points || 0;
             user.progress = Object.assign(user.progress, saved.progress || {});
+            user.stats = Object.assign({ totalQuestions: 0, correctQuestions: 0, currentStreak: 0, maxStreak: 0 }, saved.stats || {});
             shownQuestionIds = new Set(saved.shownQuestionIds || []);
             return !!user.name;
-        } catch (e) {
-            console.warn('تعذر استرجاع التقدم المحفوظ:', e);
-            return false;
-        }
+        } catch (e) { return false; }
     }
 
     function resetUserData() {
@@ -987,25 +896,18 @@
         }
     }
 
-    function toggleDrawer() {
-        document.getElementById('app-drawer').classList.toggle('open');
-    }
+    function toggleDrawer() { document.getElementById('app-drawer').classList.toggle('open'); }
 
     function toggleTheme() {
         const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme');
-        html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         toggleDrawer();
     }
 
     function toggleReportModal(show) {
         const modal = document.getElementById('report-modal');
-        if(show) {
-            modal.classList.remove('hidden');
-            document.getElementById('app-drawer').classList.remove('open');
-        } else {
-            modal.classList.add('hidden');
-        }
+        if(show) { modal.classList.remove('hidden'); document.getElementById('app-drawer').classList.remove('open'); }
+        else { modal.classList.add('hidden'); }
     }
 
     function submitReport() {
@@ -1032,7 +934,6 @@
         if(!name) { alert("يرجى كتابة اسمك أولاً!"); return; }
         user.name = name;
         user.email = document.getElementById('useremail').value.trim() || "guest@aldad.com";
-        
         document.getElementById('auth-screen').classList.add('hidden');
         document.getElementById('otp-screen').classList.remove('hidden');
     }
@@ -1049,16 +950,14 @@
     }
 
     function verifyOTP() {
-        if(document.getElementById('otp-input').value.trim() === "1234") {
-            completeLogin();
-        } else { alert("الرمز التجريبي الصحيح هو: 1234"); }
+        if(document.getElementById('otp-input').value.trim() === "1234") { completeLogin(); }
+        else { alert("الرمز التجريبي الصحيح هو: 1234"); }
     }
 
     function completeLogin() {
         document.getElementById('display-name').innerText = user.name;
         document.getElementById('display-points').innerText = user.points;
         document.getElementById('top-bar').classList.remove('hidden');
-        
         document.getElementById('auth-screen').classList.add('hidden');
         document.getElementById('otp-screen').classList.add('hidden');
         document.getElementById('path-select-screen').classList.remove('hidden');
@@ -1074,9 +973,7 @@
         let allQ = [];
         Object.keys(questionsDatabase).forEach(k => { allQ = allQ.concat(questionsDatabase[k]); });
         allQ.sort(() => Math.random() - 0.5);
-
         placementQuestions = allQ.slice(0, Math.min(15, allQ.length)).map(q => buildShuffledQuestion(q));
-
         placementIndex = 0; placementScore = 0;
         document.getElementById('path-select-screen').classList.add('hidden');
         document.getElementById('placement-screen').classList.remove('hidden');
@@ -1102,7 +999,13 @@
                     if (b.innerText === q.correct) b.classList.add('correct');
                     if (b.innerText === opt && opt !== q.correct) b.classList.add('wrong');
                 });
-                if (opt === q.correct) placementScore++;
+                user.stats.totalQuestions++;
+                if (opt === q.correct) {
+                    placementScore++;
+                    user.stats.correctQuestions++;
+                    user.stats.currentStreak++;
+                    if (user.stats.currentStreak > user.stats.maxStreak) user.stats.maxStreak = user.stats.currentStreak;
+                } else { user.stats.currentStreak = 0; }
                 document.getElementById('place-next-btn').classList.remove('hidden');
             };
             container.appendChild(btn);
@@ -1111,11 +1014,9 @@
 
     function nextPlacementQuestion() {
         placementIndex++;
-        if(placementIndex < placementQuestions.length) {
-            showPlacementQuestion();
-        } else {
+        if(placementIndex < placementQuestions.length) { showPlacementQuestion(); }
+        else {
             document.getElementById('placement-screen').classList.add('hidden');
-            
             if (placementScore >= 12) {
                 tracks.forEach(t => user.progress[t.key] = Math.max(user.progress[t.key], 5));
                 alert(`ممتاز! نتيجتك ${placementScore}/${placementQuestions.length}. تم تسريع تقدمك وفتح أول 5 مستويات في كافة المسارات! 🎉`);
@@ -1125,16 +1026,44 @@
             } else {
                 alert(`أنهيت الاختبار بنتيجة ${placementScore}/${placementQuestions.length}. يمكنك الآن البدء بالتدرج من المستوى الأول.`);
             }
-
             saveUserData();
             showMap();
         }
+    }
+
+    function updateDashboardUI() {
+        let totalLevels = 0;
+        let completedLevels = 0;
+        tracks.forEach(t => {
+            totalLevels += t.levels;
+            const userUnlocked = user.progress[t.key] || 1;
+            completedLevels += Math.min(userUnlocked - 1, t.levels);
+        });
+        const percent = Math.min(100, Math.round((completedLevels / totalLevels) * 100));
+        
+        document.getElementById('overall-progress-text').innerText = `${percent}%`;
+        document.getElementById('overall-progress-fill').style.width = `${percent}%`;
+
+        document.getElementById('stat-total-questions').innerText = user.stats.totalQuestions;
+        const successRate = user.stats.totalQuestions > 0 ? Math.round((user.stats.correctQuestions / user.stats.totalQuestions) * 100) : 0;
+        document.getElementById('stat-success-rate').innerText = `${successRate}%`;
+        document.getElementById('stat-max-streak').innerText = user.stats.maxStreak;
+
+        tracks.forEach(t => {
+            const badgeEl = document.getElementById(`badge-${t.key}`);
+            if (badgeEl) {
+                if ((user.progress[t.key] || 1) > t.levels) { badgeEl.classList.add('unlocked'); }
+                else { badgeEl.classList.remove('unlocked'); }
+            }
+        });
     }
 
     function showMap() {
         document.getElementById('quiz-screen').classList.add('hidden');
         document.getElementById('result-screen').classList.add('hidden');
         document.getElementById('map-screen').classList.remove('hidden');
+
+        updateDashboardUI();
 
         const container = document.getElementById('path-grid-container');
         container.innerHTML = '';
@@ -1183,7 +1112,6 @@
         isReviewMode = false;
         wrongQuestionsPool = [];
 
-        // تصفية الأسئلة لضمان التنوع وعدم التكرار
         let masterPool = [...questionsDatabase[trackKey]];
         let unusedPool = masterPool.filter(q => !shownQuestionIds.has(q.id));
 
@@ -1240,13 +1168,23 @@
             if (btn.innerText === selectedOpt && selectedOpt !== qObj.correct) btn.classList.add('wrong');
         });
 
+        user.stats.totalQuestions++;
+
         if (selectedOpt === qObj.correct) {
             user.points += 10;
+            user.stats.correctQuestions++;
+            user.stats.currentStreak++;
+            if (user.stats.currentStreak > user.stats.maxStreak) {
+                user.stats.maxStreak = user.stats.currentStreak;
+            }
+
             document.getElementById('display-points').innerText = user.points;
             feedback.innerText = "إجابة صحيحة! أحسنت 👏 (+10 نقاط ﺽ)";
             feedback.className = 'feedback-box feedback-correct';
             saveUserData();
         } else {
+            user.stats.currentStreak = 0;
+            
             feedback.innerText = `إجابة خاطئة! التوضيح: ${qObj.exp}`;
             feedback.className = 'feedback-box feedback-wrong';
             
@@ -1256,40 +1194,34 @@
 
             const topic = qObj.topic;
             const timeSeconds = qObj.time;
-            aiText.innerHTML = `لاحظ النظام صعوبة في درس <strong>[${topic}]</strong>.<br>يمكنك الانتقال فوراً للشرح المباشر عند الدقيقة (${Math.floor(timeSeconds/60)}:${(timeSeconds%60).toString().padStart(2, '0')}):`;
-            
+            aiText.innerHTML = `لاحظ النظام صعوبة في درس <strong>[${topic}]</strong>.<br>يمكنك الانتقال فوراً للشرح المباشر عند الدقيقة (${Math.floor(timeSeconds/60)}).`;
             pendingYtLink = generateSmartYtLink(topic, timeSeconds);
-            aiYtBtn.onclick = triggerAdModal;
-
+            aiYtBtn.onclick = () => showAdBeforeYoutube(pendingYtLink);
             aiBox.classList.remove('hidden');
         }
 
-        feedback.classList.remove('hidden');
         document.getElementById('quiz-next-btn').classList.remove('hidden');
     }
 
-    function triggerAdModal() {
+    function showAdBeforeYoutube(url) {
         const modal = document.getElementById('ad-modal');
         const skipBtn = document.getElementById('skip-ad-btn');
         modal.classList.remove('hidden');
-
-        let secondsLeft = 5;
+        let count = 5;
         skipBtn.disabled = true;
-        skipBtn.style.backgroundColor = '#475569';
-        skipBtn.innerText = `انتظر (${secondsLeft}) ثوانٍ...`;
+        skipBtn.innerText = `انتظر (${count}) ثوانٍ...`;
 
-        const countdown = setInterval(() => {
-            secondsLeft--;
-            if (secondsLeft > 0) {
-                skipBtn.innerText = `انتظر (${secondsLeft}) ثوانٍ...`;
+        const timer = setInterval(() => {
+            count--;
+            if (count > 0) {
+                skipBtn.innerText = `انتظر (${count}) ثوانٍ...`;
             } else {
-                clearInterval(countdown);
+                clearInterval(timer);
                 skipBtn.disabled = false;
-                skipBtn.style.backgroundColor = 'var(--accent)';
-                skipBtn.innerText = "تخطي الإعلان والذهاب للشرح ▶️";
+                skipBtn.innerText = "الانتقال إلى يوتيوب 🚀";
                 skipBtn.onclick = () => {
                     modal.classList.add('hidden');
-                    window.open(pendingYtLink, '_blank');
+                    window.open(url, '_blank');
                 };
             }
         }, 1000);
@@ -1300,47 +1232,39 @@
         if (currentQuizIndex < activeQuizPool.length) {
             showQuizQuestion();
         } else {
-            finishQuizRound();
+            if (wrongQuestionsPool.length > 0 && !isReviewMode) {
+                isReviewMode = true;
+                activeQuizPool = wrongQuestionsPool.map(q => buildShuffledQuestion(q));
+                wrongQuestionsPool = [];
+                currentQuizIndex = 0;
+                alert("ممتاز! ستقوم الآن بمراجعة وإعادة الأسئلة التي أخطأت فيها لإتقانها 👍");
+                showQuizQuestion();
+            } else {
+                finishLevel();
+            }
         }
     }
 
-    function finishQuizRound() {
+    function finishLevel() {
         document.getElementById('quiz-screen').classList.add('hidden');
         document.getElementById('result-screen').classList.remove('hidden');
 
-        if (wrongQuestionsPool.length === 0) {
-            document.getElementById('result-title').innerText = `أحسنت! أتقنت المستوى ${currentLevelNum} بنجاح 🎉`;
-            document.getElementById('result-desc').innerText = `تم فتح المستوى التالي في هذا المسار. رصيدك الآن: ${user.points} ﺽ`;
-            document.getElementById('result-btn').innerText = "الانتقال للمستوى التالي";
-
-            if (user.progress[currentTrackKey] <= currentLevelNum) {
-                user.progress[currentTrackKey] = currentLevelNum + 1;
-            }
-            saveUserData();
-        } else {
-            document.getElementById('result-title').innerText = "أوشكت على إتقان المستوى! 🎯";
-            document.getElementById('result-desc').innerText = `لديك ${wrongQuestionsPool.length} أسئلة بحاجة لمراجعة. سنعيد اختبارك في هذه الأسئلة لضمان الإتقان.`;
-            document.getElementById('result-btn').innerText = "بدء اختبار الإتقان والتدريب";
+        const currentUnlocked = user.progress[currentTrackKey] || 1;
+        if (currentLevelNum >= currentUnlocked) {
+            user.progress[currentTrackKey] = currentLevelNum + 1;
         }
+
+        document.getElementById('result-title').innerText = "🎉 أبدعت! تم إنهاء المستوى بنجاح";
+        document.getElementById('result-desc').innerText = `تهانينا! لقد أتقنت هذا المستوى وحصلت على نقاط إضافية. مجموع نقاطك الآن: ${user.points} ﺽ`;
+
+        saveUserData();
     }
 
     function handleResultAction() {
-        if (wrongQuestionsPool.length > 0) {
-            isReviewMode = true;
-            activeQuizPool = wrongQuestionsPool.map(q => buildShuffledQuestion(q));
-            wrongQuestionsPool = [];
-            currentQuizIndex = 0;
-
-            document.getElementById('result-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.remove('hidden');
-            showQuizQuestion();
-        } else {
-            showMap();
-        }
+        showMap();
     }
 
-    initApp();
+    window.onload = initApp;
 </script>
-
 </body>
 </html>
