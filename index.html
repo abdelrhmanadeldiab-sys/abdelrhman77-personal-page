@@ -476,6 +476,25 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: 0
 
 a.drawer-item { color: var(--text-light); }
 
+.quiz-topbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+.exit-quiz-btn {
+    background: var(--card-bg-alt);
+    color: var(--text-muted);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-pressed);
+    transition: color 0.2s;
+}
+.exit-quiz-btn:hover { color: var(--danger); }
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
@@ -489,7 +508,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
 <body>
 
 <div class="container">
-    <button class="menu-toggle" onclick="toggleDrawer()">☰</button>
+    <button class="menu-toggle" onclick="toggleDrawer()" aria-label="القائمة">☰</button>
 
     <div class="profile-header">
         <h1>Abdelrahman Adel Diab's Page</h1>
@@ -545,6 +564,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         <p style="text-align: center; color: var(--text-muted); margin-top:-10px; margin-bottom:20px; font-size: 14px;">
             شرح مبسّط لأهم أبواب النحو والبلاغة، بالتعريف والأمثلة والإعراب.
         </p>
+        <div class="form-group">
+            <input type="text" id="articles-search-input" placeholder="🔍 ابحث عن درس... (مثال: التمييز)" oninput="filterArticlesList()">
+        </div>
         <div id="articles-list-container" class="form-group"></div>
         <button class="btn btn-alt" onclick="backFromArticlesList()">العودة للخلف</button>
     </div>
@@ -623,6 +645,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
 
     <!-- 6. شاشة الاختبار -->
     <div id="quiz-screen" class="hidden">
+        <div class="quiz-topbar">
+            <button class="exit-quiz-btn" onclick="exitQuizToMap()">↩️ الخروج للخريطة</button>
+        </div>
         <div id="quiz-mode-tag" style="color: var(--gold); font-weight: bold; margin-bottom: 5px;"></div>
         <div id="quiz-progress" style="margin-bottom: 10px; font-weight: bold; color: var(--text-muted);"></div>
         <h3 id="quiz-question-text"></h3>
@@ -691,8 +716,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
     <button class="drawer-item" onclick="toggleDrawer(); showPrivacyScreen();">🔒 سياسة الخصوصية</button>
     
     <a href="https://wa.me/201150406540?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%82" target="_blank" class="drawer-item">💬 تواصل مع عبد الرحمن عبر واتساب</a>
-    <a href="https://facebook.com" target="_blank" class="drawer-item">📘 صفحة الفيسبوك الرسمية</a>
-    <a href="https://instagram.com" target="_blank" class="drawer-item">📸 صفحة الإنستجرام</a>
+    <a href="https://www.facebook.com/share/1HT6qHieP6/" target="_blank" class="drawer-item">📘 صفحة الفيسبوك الرسمية</a>
 
     <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 15px; font-size: 11px; color: var(--text-muted); text-align: center;">
         <p><strong>الصفحة الشخصية لعبد الرحمن عادل دياب</strong><br>جميع الحقوق محفوظة © 2026</p>
@@ -757,13 +781,18 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         ]
     };
 
+    const QUESTIONS_PER_LEVEL = 3;
+
     const tracks = [
-        { key: 'mubtadi', name: '🌱 مسار المبتدئ', levels: 10 },
-        { key: 'mutawassit', name: '📖 مسار المتوسط', levels: 10 },
-        { key: 'shater', name: '⚡ مسار الشاطر', levels: 10 },
-        { key: 'daheeh', name: '🔥 مسار الدحيح', levels: 10 },
-        { key: 'ustath', name: '👑 مسار الأستاذ', levels: 10 }
-    ];
+        { key: 'mubtadi', name: '🌱 مسار المبتدئ' },
+        { key: 'mutawassit', name: '📖 مسار المتوسط' },
+        { key: 'shater', name: '⚡ مسار الشاطر' },
+        { key: 'daheeh', name: '🔥 مسار الدحيح' },
+        { key: 'ustath', name: '👑 مسار الأستاذ' }
+    ].map(t => ({
+        ...t,
+        levels: Math.max(2, Math.floor(questionsDatabase[t.key].length / QUESTIONS_PER_LEVEL))
+    }));
 
     const articles = [
         {
@@ -775,6 +804,106 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
             id: "art-istiaara",
             title: "الاستعارة المكنية والتصريحية",
             body: `<p>الاستعارة نوع من التشبيه حُذف منه أحد طرفيه. إن حُذف المشبَّه وصُرّح بالمشبَّه به فهي تصريحية، مثل: <strong>"واعتصموا بحبل الله"</strong>. وإن حُذف المشبَّه به وأُبقي على صفة من صفاته فهي مكنية، مثل: <strong>"ابتسمتِ الحياةُ"</strong>.</p>`
+        },
+        {
+            id: "art-aqsam-alkalima",
+            title: "أقسام الكلمة في اللغة العربية",
+            body: `<p>تنقسم الكلمة في العربية إلى ثلاثة أقسام: <strong>اسم</strong> (يدل على ذات أو معنى ويقبل التنوين و"أل")، و<strong>فعل</strong> (يدل على حدث مرتبط بزمن)، و<strong>حرف</strong> (لا معنى له إلا مع غيره، مثل حروف الجر والعطف).</p><p>مثال: في جملة "جاء المعلمُ مسرعاً"، كلمة "المعلم" اسم، و"جاء" فعل ماضٍ.</p>`
+        },
+        {
+            id: "art-madh-dham",
+            title: "أسلوب المدح والذم (نِعْمَ وبِئْسَ)",
+            body: `<p>يُستخدم فعلا المدح والذم "نِعْمَ" و"بِئْسَ" لإنشاء المدح أو الذم، ويُذكر بعدهما فاعل ثم <strong>المخصوص بالمدح أو الذم</strong>، وهو يُعرب مبتدأً مؤخراً خبره الجملة السابقة، أو خبراً لمبتدأ محذوف تقديره "هو".</p><p>مثال: "نِعْمَ الخُلُقُ الصِّدْقُ" — الصدق هو المخصوص بالمدح.</p>`
+        },
+        {
+            id: "art-naat",
+            title: "النعت وأنواعه",
+            body: `<p>النعت (الصفة) يتبع المنعوت في إعرابه وتعريفه وتنكيره وعدده ونوعه. ينقسم إلى: <strong>نعت مفرد</strong> (كلمة واحدة)، و<strong>نعت جملة</strong> (فعلية أو اسمية، وتقع بعد نكرة)، و<strong>نعت شبه جملة</strong> (ظرف أو جار ومجرور).</p><p>مثال: "رأيتُ طائراً يُغَرِّدُ" — جملة "يغرد" نعت للنكرة "طائراً".</p>`
+        },
+        {
+            id: "art-badal",
+            title: "البدل وأنواعه",
+            body: `<p>البدل هو تابع يُذكر بعد اسم سابق (المُبدَل منه) ليوضحه أو يخصصه، وله أنواع: <strong>بدل مطابق</strong> (كل من كل)، و<strong>بدل بعض من كل</strong>، و<strong>بدل اشتمال</strong> (حين يشتمل الأول على الثاني بمعنى لا بجزء منه).</p><p>مثال: "أعجبني المعلمُ شرحُه" — "شرحه" بدل اشتمال من "المعلم".</p>`
+        },
+        {
+            id: "art-af3al-khamsa",
+            title: "الأفعال الخمسة",
+            body: `<p>هي كل فعل مضارع اتصلت به ألف الاثنين، أو واو الجماعة، أو ياء المخاطبة. تُرفع بثبوت النون، وتُنصب وتُجزم بحذفها.</p><p>مثال: "الطالبان يذاكرانِ" (مرفوع بثبوت النون)، "لم يذاكرا" (مجزوم بحذف النون).</p>`
+        },
+        {
+            id: "art-tamyeez",
+            title: "التمييز: تعريفه وأنواعه",
+            body: `<p>التمييز اسم نكرة منصوب يُزيل غموضاً في كلمة أو جملة سابقة. ينقسم إلى <strong>تمييز ذات</strong> (يوضح مبهماً كالعدد والمقادير) و<strong>تمييز نسبة/جملة</strong> (يوضح غموضاً في جملة كاملة، وقد يكون محوّلاً عن فاعل أو مفعول به).</p><p>مثال: "طابتِ الإسكندريةُ هواءً" — "هواءً" تمييز محوّل عن فاعل (طاب هواؤها).</p>`
+        },
+        {
+            id: "art-istithna",
+            title: "الاستثناء وأنواعه",
+            body: `<p>أسلوب الاستثناء يتكوّن من مستثنى منه وأداة استثناء (غالباً "إلا") ومستثنى. للمستثنى بـ"إلا" ثلاث حالات: <strong>واجب النصب</strong> (إذا كان الكلام تاماً مثبتاً)، و<strong>جائز النصب أو الإتباع على البدلية</strong> (إذا كان الكلام تاماً منفياً)، وإذا كان الكلام ناقصاً منفياً يُعرب المستثنى حسب موقعه في الجملة.</p><p>مثال تام مثبت: "حضر الطلابُ إلا طالباً" (واجب النصب).</p>`
+        },
+        {
+            id: "art-maqsoor",
+            title: "الاسم المقصور",
+            body: `<p>هو كل اسم معرب انتهى بألف لازمة مفتوح ما قبلها، مثل: "مصطفى، الهدى، العصا". تُقدَّر عليه حركات الإعراب الثلاث (الرفع والنصب والجر) للتعذر.</p><p>عند جمعه جمع مذكر سالم تُحذف الألف وتُفتح ما قبل الواو أو الياء دلالة عليها، مثل: "الأعلى" ← "الأعلَوْن".</p>`
+        },
+        {
+            id: "art-manqoos",
+            title: "الاسم المنقوص",
+            body: `<p>هو كل اسم معرب انتهى بياء لازمة مكسور ما قبلها، مثل: "الداعي، القاضي، الساعي". تُقدَّر عليه حركتا الرفع والجر للثقل، وتظهر الفتحة في حالة النصب.</p><p>إذا كان نكرة تُحذف ياؤه في حالتي الرفع والجر، مثل: "جاء داعٍ" (بدلاً من داعي).</p>`
+        },
+        {
+            id: "art-mamdood",
+            title: "الاسم الممدود",
+            body: `<p>هو كل اسم معرب انتهى بهمزة قبلها ألف زائدة، مثل: "صحراء، سماء، بناء". قد تكون همزته أصلية، أو منقلبة عن حرف علة، أو زائدة للتأنيث.</p><p>عند تثنية الممدود الذي همزته زائدة للتأنيث تُقلب همزته واواً وجوباً، مثل: "حسناء" ← "حسناوان".</p>`
+        },
+        {
+            id: "art-jazm-mudari",
+            title: "جزم الفعل المضارع",
+            body: `<p>يُجزم الفعل المضارع إذا سبقته أداة جزم مثل "لم، لما، لا الناهية، لام الأمر". علامة جزمه: <strong>السكون</strong> إذا كان صحيح الآخر، و<strong>حذف حرف العلة</strong> إذا كان معتل الآخر، و<strong>حذف النون</strong> إذا كان من الأفعال الخمسة.</p><p>مثال: "لا تُهملْ واجبَك" — الفعل "تهمل" مجزوم بالسكون بـ"لا" الناهية.</p>`
+        },
+        {
+            id: "art-asmaa-khamsa",
+            title: "الأسماء الخمسة",
+            body: `<p>هي: أب، أخ، حم، فو، ذو (بمعنى صاحب)، وتُعرب بالحروف لا بالحركات بشرط أن تكون مفردة ومضافة لغير ياء المتكلم. تُرفع بالواو، وتُنصب بالألف، وتُجر بالياء.</p><p>مثال: "جاء أبو محمدٍ" (فاعل مرفوع بالواو).</p>`
+        },
+        {
+            id: "art-mushtaqqat",
+            title: "المشتقات: اسم الفاعل والمفعول",
+            body: `<p>اسم الفاعل صفة تدل على من قام بالفعل، ويُصاغ من الثلاثي على وزن "فاعِل" مثل "كاتب" من "كتب". اسم المفعول صفة تدل على من وقع عليه الفعل، ويُصاغ من الثلاثي على وزن "مفعول" مثل "مكتوب".</p>`
+        },
+        {
+            id: "art-naib-maful-mutlaq",
+            title: "النائب عن المفعول المطلق",
+            body: `<p>قد يُحذف المصدر (المفعول المطلق) ويحل محله ما يدل عليه، مثل صفته، أو نوعه، أو عدده، أو كلمة "كل/بعض" مضافة إليه، أو مرادفه.</p><p>مثال: "قرأتُ الكتابَ كلَّ القراءةِ" — "كل" نائب عن المفعول المطلق لأنها أضيفت إلى المصدر.</p>`
+        },
+        {
+            id: "art-mamnou-min-sarf",
+            title: "الممنوع من الصرف",
+            body: `<p>هو اسم لا يقبل التنوين ولا الكسرة في حالة الجر الأصلية، ويُجر بالفتحة بدلاً منها إذا كان مجرداً من "أل" والإضافة. أما إذا عُرِّف بـ"أل" أو أُضيف فإنه يُجر بالكسرة كالأسماء العادية.</p><p>من أسبابه: صيغة منتهى الجموع، وزن الفعل، العلمية مع التأنيث أو العجمة أو زيادة الألف والنون.</p>`
+        },
+        {
+            id: "art-jam-mudhakkar-mulhaq",
+            title: "جمع المذكر السالم والملحق به",
+            body: `<p>جمع المذكر السالم يُرفع بالواو ويُنصب ويُجر بالياء، ويكون بزيادة واو ونون أو ياء ونون على المفرد، مثل "معلمون/معلمين". يُلحق به بعض الألفاظ التي لا تنطبق عليها شروطه الأصلية لكنها تُعامل معاملته، مثل "بنون، أهلون، عالَمون".</p>`
+        },
+        {
+            id: "art-kam-istifhamiya",
+            title: "كم الاستفهامية والخبرية",
+            body: `<p>"كم" الاستفهامية يُطلب بها العدد، وتمييزها مفرد منصوب، مثل: "كم كتاباً قرأتَ؟". أما "كم" الخبرية فتدل على الكثرة، وتمييزها مفرد أو جمع مجرور، مثل: "كم كتابٍ قرأتُ!".</p>`
+        },
+        {
+            id: "art-masdar",
+            title: "المصادر وصياغتها",
+            body: `<p>المصدر اسم يدل على الحدث مجرداً من الزمن. للفعل الثلاثي أوزان سماعية متعددة، أما غير الثلاثي فله أوزان قياسية غالباً، مثل: مصدر "استخرجَ" (سداسي) هو "استخراج" على وزن "استفعال"، ومصدر "انتصرَ" (خماسي) هو "انتصار".</p>`
+        },
+        {
+            id: "art-aghrad-amr",
+            title: "الأغراض البلاغية لأسلوب الأمر",
+            body: `<p>قد يخرج أسلوب الأمر عن معناه الحقيقي (الطلب) إلى أغراض بلاغية يفهمها السياق، مثل: <strong>التعجيز</strong> (كما في "فأتوا بسورة من مثله")، و<strong>النصح والإرشاد</strong>، و<strong>الدعاء</strong>، و<strong>التهديد</strong>، و<strong>الإباحة</strong>.</p>`
+        },
+        {
+            id: "art-dhamair",
+            title: "الضمائر: أنواعها ومواضعها",
+            body: `<p>الضمير اسم مبني يدل على متكلم أو مخاطب أو غائب. ينقسم إلى <strong>ضمائر منفصلة</strong> (مثل: أنا، أنتَ، هو) تُستخدم مستقلة، و<strong>ضمائر متصلة</strong> (مثل: التاء في "كتبتُ"، الهاء في "كتابُه") تتصل بما قبلها ولا تنفرد بالنطق.</p>`
         }
     ];
 
@@ -800,17 +929,42 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         ['auth-screen','otp-screen','path-select-screen','placement-screen','map-screen','quiz-screen','result-screen','article-detail-screen','privacy-screen']
             .forEach(id => document.getElementById(id).classList.add('hidden'));
 
+        const searchInput = document.getElementById('articles-search-input');
+        if (searchInput) searchInput.value = '';
+        renderArticlesList(articles);
+
+        document.getElementById('articles-list-screen').classList.remove('hidden');
+    }
+
+    function renderArticlesList(list) {
         const container = document.getElementById('articles-list-container');
         container.innerHTML = '';
-        articles.forEach(a => {
+
+        if (list.length === 0) {
+            const empty = document.createElement('p');
+            empty.style.textAlign = 'center';
+            empty.style.color = 'var(--text-muted)';
+            empty.innerText = 'لا توجد دروس مطابقة لبحثك 🔍';
+            container.appendChild(empty);
+            return;
+        }
+
+        list.forEach(a => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = `📖 ${a.title}`;
             btn.onclick = () => showArticleDetail(a.id);
             container.appendChild(btn);
         });
+    }
 
-        document.getElementById('articles-list-screen').classList.remove('hidden');
+    function filterArticlesList() {
+        const query = document.getElementById('articles-search-input').value.trim();
+        if (!query) { renderArticlesList(articles); return; }
+        const filtered = articles.filter(a =>
+            a.title.includes(query) || a.body.includes(query)
+        );
+        renderArticlesList(filtered);
     }
 
     function showArticleDetail(articleId) {
@@ -846,9 +1000,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
     let placementQuestions = [];
     let placementIndex = 0;
     let placementScore = 0;
+    let placementScoreByTrack = {};
+    let placementAttemptsByTrack = {};
     let pendingYtLink = '';
 
     const STORAGE_KEY = 'aldad_user_progress_v1';
+    const THEME_KEY = 'aldad_theme_v1';
 
     function saveUserData() {
         try {
@@ -885,7 +1042,17 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         location.reload();
     }
 
+    function loadTheme() {
+        try {
+            const saved = localStorage.getItem(THEME_KEY);
+            if (saved === 'dark' || saved === 'light') {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        } catch (e) {}
+    }
+
     function initApp() {
+        loadTheme();
         const hasSavedUser = loadUserData();
         if (hasSavedUser) {
             document.getElementById('display-name').innerText = user.name;
@@ -900,7 +1067,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
 
     function toggleTheme() {
         const html = document.documentElement;
-        html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        try { localStorage.setItem(THEME_KEY, newTheme); } catch (e) {}
         toggleDrawer();
     }
 
@@ -969,11 +1138,30 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         showMap();
     }
 
+    // ============ اختبار تحديد المستوى (متوازن بين كل المسارات) ============
+    const PLACEMENT_PER_TRACK = 3;
+
     function startPlacementTest() {
-        let allQ = [];
-        Object.keys(questionsDatabase).forEach(k => { allQ = allQ.concat(questionsDatabase[k]); });
-        allQ.sort(() => Math.random() - 0.5);
-        placementQuestions = allQ.slice(0, Math.min(15, allQ.length)).map(q => buildShuffledQuestion(q));
+        placementQuestions = [];
+        placementScoreByTrack = {};
+        placementAttemptsByTrack = {};
+
+        tracks.forEach(t => {
+            placementScoreByTrack[t.key] = 0;
+            placementAttemptsByTrack[t.key] = 0;
+
+            const bank = [...questionsDatabase[t.key]].sort(() => Math.random() - 0.5);
+            const picked = bank.slice(0, Math.min(PLACEMENT_PER_TRACK, bank.length));
+            picked.forEach(raw => {
+                const built = buildShuffledQuestion(raw);
+                built.trackKey = t.key;
+                placementQuestions.push(built);
+            });
+        });
+
+        // نخلط ترتيب الأسئلة نفسها حتى لا تُعرض مجمّعة حسب المسار
+        placementQuestions.sort(() => Math.random() - 0.5);
+
         placementIndex = 0; placementScore = 0;
         document.getElementById('path-select-screen').classList.add('hidden');
         document.getElementById('placement-screen').classList.remove('hidden');
@@ -1000,8 +1188,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
                     if (b.innerText === opt && opt !== q.correct) b.classList.add('wrong');
                 });
                 user.stats.totalQuestions++;
+                placementAttemptsByTrack[q.trackKey]++;
                 if (opt === q.correct) {
                     placementScore++;
+                    placementScoreByTrack[q.trackKey]++;
                     user.stats.correctQuestions++;
                     user.stats.currentStreak++;
                     if (user.stats.currentStreak > user.stats.maxStreak) user.stats.maxStreak = user.stats.currentStreak;
@@ -1017,16 +1207,28 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         if(placementIndex < placementQuestions.length) { showPlacementQuestion(); }
         else {
             document.getElementById('placement-screen').classList.add('hidden');
-            if (placementScore >= 12) {
-                tracks.forEach(t => user.progress[t.key] = Math.max(user.progress[t.key], 5));
-                alert(`ممتاز! نتيجتك ${placementScore}/${placementQuestions.length}. تم تسريع تقدمك وفتح أول 5 مستويات في كافة المسارات! 🎉`);
-            } else if (placementScore >= 7) {
-                tracks.forEach(t => user.progress[t.key] = Math.max(user.progress[t.key], 3));
-                alert(`أحسنت! نتيجتك ${placementScore}/${placementQuestions.length}. تم فتح أول 3 مستويات لك! 👍`);
-            } else {
-                alert(`أنهيت الاختبار بنتيجة ${placementScore}/${placementQuestions.length}. يمكنك الآن البدء بالتدرج من المستوى الأول.`);
-            }
+
+            // نحدد مستوى البداية لكل مسار على حدة حسب أداء المستخدم في أسئلة هذا المسار تحديداً
+            const summaryLines = [];
+            tracks.forEach(t => {
+                const attempted = placementAttemptsByTrack[t.key] || 0;
+                const correct = placementScoreByTrack[t.key] || 0;
+                const pct = attempted > 0 ? correct / attempted : 0;
+
+                let unlockLevel = 1;
+                if (pct >= 0.8) {
+                    unlockLevel = Math.max(2, Math.ceil(t.levels * 0.6) + 1);
+                } else if (pct >= 0.5) {
+                    unlockLevel = Math.max(2, Math.ceil(t.levels * 0.3) + 1);
+                }
+                unlockLevel = Math.min(unlockLevel, t.levels);
+
+                user.progress[t.key] = Math.max(user.progress[t.key], unlockLevel);
+                summaryLines.push(`${t.name}: ${correct}/${attempted}`);
+            });
+
             saveUserData();
+            alert(`انتهى اختبار تحديد المستوى!\nنتيجتك الإجمالية: ${placementScore}/${placementQuestions.length}\n\n` + summaryLines.join('\n') + `\n\nتم فتح المستوى المناسب لك في كل مسار على حدة 🎉`);
             showMap();
         }
     }
@@ -1115,14 +1317,14 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         let masterPool = [...questionsDatabase[trackKey]];
         let unusedPool = masterPool.filter(q => !shownQuestionIds.has(q.id));
 
-        if (unusedPool.length < 3) {
+        if (unusedPool.length < QUESTIONS_PER_LEVEL) {
             masterPool.forEach(q => shownQuestionIds.delete(q.id));
             unusedPool = [...masterPool];
         }
 
         unusedPool.sort(() => Math.random() - 0.5);
 
-        let selected = unusedPool.slice(0, 4);
+        let selected = unusedPool.slice(0, QUESTIONS_PER_LEVEL);
         selected.forEach(q => shownQuestionIds.add(q.id));
 
         activeQuizPool = selected.map(q => buildShuffledQuestion(q));
@@ -1131,6 +1333,16 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
         document.getElementById('map-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
         showQuizQuestion();
+    }
+
+    function exitQuizToMap() {
+        if (currentQuizIndex > 0 || wrongQuestionsPool.length > 0) {
+            if (!confirm('لو خرجت الآن هيتم حفظ نقاطك من الأسئلة اللي جاوبت عليها، لكن مستوى النجاح في هذا المستوى مش هيتسجل. متأكد إنك عايز تخرج؟')) {
+                return;
+            }
+        }
+        document.getElementById('quiz-screen').classList.add('hidden');
+        showMap();
     }
 
     function showQuizQuestion() {
